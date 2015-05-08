@@ -10,8 +10,8 @@ To install the faoswsUtil package, simply run the following command.
 library(devtools)
 
 ## The package depends on the faoswsFlag package
-install_github(repo = "SWS-Methodology/sws_flag", subdir = "faoswsFlag")
-install_github(repo = "SWS-Methodology/sws_util", subdir = "faoswsUtil")
+install_github(repo = "SWS-Methodology/faoswsFlag")
+install_github(repo = "SWS-Methodology/faoswsUtil")
 ```
 
 ** All work under this repository represents the latest status of development and is made public for collaboration purposes. It does not reflect the current state of the system and use of the program is at the discretion of the users. **
