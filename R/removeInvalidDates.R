@@ -32,6 +32,8 @@ removeInvalidDates = function(data, context = swsContext.datasets[[1]]){
     areaValidRange = GetCodeList(domain = slot(context, "domain"),
                                  dataset = slot(context, "dataset"),
                                  dimension = "geographicAreaM49")
+    areaValidRange = areaValidRange[, c("type", "selectionOnly",
+                                        "description") := NULL, with = FALSE]
     cleanDates = function(date){
         date = lapply(date, function(x) ifelse(is.null(x), NA, x))
         do.call("c", date)
