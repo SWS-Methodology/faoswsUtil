@@ -1,11 +1,10 @@
 Package: faoswsUtil
 Type: Package
 Title: A suite of function to support the FAO new Statistical Working System.
-Version: 0.1.4
-Date: 2015-01-30
-Authors@R: c(person("Micheal. C. J.", "Kao", role = c("aut", "cre"), email = "michael.kao@fao.org"))
+Version: 0.1.5
+Date: 2015-05-19
 Author: Michael C. J. Kao <michael.kao@fao.org>, Aleksander Matrunich <aleksander.matrunich@fao.org>, Joshua M. Browning <joshua.browning@fao.org>
-Maintainer: Michael C. J. Kao <michael.kao@fao.org>
+Maintainer: Joshua Browning <joshua.browning@fao.org>
 Description: This package provides extra functionality to the faosws package.
 Imports:
     data.table (>= 1.9.2),
