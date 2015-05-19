@@ -43,13 +43,17 @@ computeYield = function(productionValue, productionObservationFlag,
                  "areaHarvestedValue", "areaHarvestedObservationFlag",
                  "yieldValue", "yieldObservationFlag", "yieldMethodFlag"))
 
-    data[, yieldValue :=
+    ## Don't update all values, only if the yield is "updateable", i.e. only
+    ## if yield is currently missing but production and area harvested are not
+    updateable = data[, is.na(yieldValue) & !is.na(productionValue) &
+                          !is.na(areaHarvestedValue)]
+    data[updateable, yieldValue :=
          computeRatio(productionValue, areaHarvestedValue) * unitConversion]
-    data[, yieldObservationFlag :=
+    data[updateable, yieldObservationFlag :=
          aggregateObservationFlag(productionObservationFlag,
                                   areaHarvestedObservationFlag,
                                   flagTable = flagTable)]
-    data[, yieldMethodFlag := newMethodFlag]
+    data[updateable, yieldMethodFlag := newMethodFlag]
 
     setnames(x = data,
              old = c("productionValue", "productionObservationFlag",
