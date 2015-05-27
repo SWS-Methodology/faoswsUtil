@@ -3,6 +3,15 @@
 ##' This function maps CPC to FCL codes using the table defined within the SWS.
 ##' 
 ##' @param cpcCodes A character vector containing the CPC codes.
+##' @param returnFirst Logical.  If one CPC code maps to multiple FCL codes, we 
+##'   have no way of correctly mapping a single code without more information. 
+##'   The code is designed to throw an error at this point, but if you want to 
+##'   force a result (and return the lwoest numerical code of all the matches) 
+##'   then set this to TRUE.  In that case, only a warning will be issued if
+##'   this type of mapping occurs.  In general, setting this to TRUE is bad
+##'   practice.  However, the mapping at the time of this writing is entirely
+##'   one-to-one except for maize, which is mapped to maize, white maize, and
+##'   popcorn.  It's probably not very bad to ignore this issue.
 ##'   
 ##' @return A character vector whose ith element is the FCL code corresponding
 ##'   to the passed CPC code in position i.  If no valid mapping is found, an NA
@@ -17,20 +26,55 @@
 ##' @export
 ##' 
 
-cpc2fcl = function(cpcCodes){
+cpc2fcl = function(cpcCodes, returnFirst = FALSE){
     ## Data Quality Checks
     stopifnot(is(cpcCodes, "character"))
-    if(!exists("swsContext.datasets"))
+    if(!exists("swsContext.datasets")){
         stop("No swsContext.datasets object defined.  Thus, you probably ",
              "won't be able to read from the SWS and so this function won't ",
              "work.")
+    }
     
     ## Load the mapping table
     map = faosws::GetTableData(schemaName = "ess", tableName = "fcl_2_cpc")
     
     ## Merge the fclCodes with the mapping table
-    out = merge(data.table(cpc = cpcCodes), map, by = "cpc", all.x = TRUE)
+    out = merge(data.table(cpc = unique(cpcCodes)), map, by = "cpc",
+                all.x = TRUE)
     ## Set the key to FCL so we can sort by passing in the vector
     setkeyv(out, "cpc")
-    out[cpcCodes, fcl]
+    result = out[cpcCodes, fcl, allow.cartesian = TRUE]
+    
+    ## The mapping isn't a 1-1 relationship.  If you didn't hit any of the non
+    ## 1-1 maps, just return the data.
+    if(length(result) == length(cpcCodes)){
+        return(result)
+    ## If a value fails to map, it should be returned with an NA.  Thus, an
+    ## error should be raised if this doesn't happen.
+    } else if(length(result) < length(cpcCodes)){
+        stop("Something strange happened.  Unmatched codes should be returned ",
+             "as NAs, not omitted completely...")
+    ## If we do have an issue with a 1 to many mapping, then either:
+    ## - ignore it by replacing the 1 to many with a 1-1 using the first code.
+    ## - return an error.
+    ## Do the first case if returnFirst is TRUE (defaults to FALSE, as this is
+    ## not good practice).
+    } else if(length(result) > length(cpcCodes)){
+        if(returnFirst){
+            warning("At least one CPC code maps to multiple FCL codes.  No ",
+                 "good solution is available, but the code is using first ",
+                 "numeric code to map to.")
+            map[, fcl := min(fcl), by = cpc]
+            map = unique(map)
+            ## Merge the fclCodes with the mapping table
+            out = merge(data.table(cpc = unique(cpcCodes)), map, by = "cpc",
+                        all.x = TRUE)
+            ## Set the key to FCL so we can sort by passing in the vector
+            setkeyv(out, "cpc")
+            return(out[cpcCodes, fcl, allow.cartesian = TRUE])
+        } else {
+            stop("At least one CPC code maps to multiple FCL codes.  No easy ",
+                 "mapping is available, you may have to map manually.")
+        }
+    }
 }

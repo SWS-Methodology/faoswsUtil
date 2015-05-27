@@ -33,8 +33,9 @@ fcl2cpc = function(fclCodes){
     map = faosws::GetTableData(schemaName = "ess", tableName = "fcl_2_cpc")
     
     ## Merge the fclCodes with the mapping table
-    out = merge(data.table(fcl = fclCodes), map, by = "fcl", all.x = TRUE)
+    out = merge(data.table(fcl = unique(fclCodes)), map, by = "fcl",
+                all.x = TRUE)
     ## Set the key to FCL so we can sort by passing in the vector
     setkeyv(out, "fcl")
-    out[fclCodes, cpc]
+    out[fclCodes, cpc, allow.cartesian = TRUE]
 }
