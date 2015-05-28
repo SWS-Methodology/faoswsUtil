@@ -4,10 +4,20 @@
 \alias{cpc2fcl}
 \title{CPC to FCL Codes}
 \usage{
-cpc2fcl(cpcCodes)
+cpc2fcl(cpcCodes, returnFirst = FALSE)
 }
 \arguments{
 \item{cpcCodes}{A character vector containing the CPC codes.}
+
+\item{returnFirst}{Logical.  If one CPC code maps to multiple FCL codes, we
+  have no way of correctly mapping a single code without more information.
+  The code is designed to throw an error at this point, but if you want to
+  force a result (and return the lwoest numerical code of all the matches)
+  then set this to TRUE.  In that case, only a warning will be issued if
+  this type of mapping occurs.  In general, setting this to TRUE is bad
+  practice.  However, the mapping at the time of this writing is entirely
+  one-to-one except for maize, which is mapped to maize, white maize, and
+  popcorn.  It's probably not very bad to ignore this issue.}
 }
 \value{
 A character vector whose ith element is the FCL code corresponding

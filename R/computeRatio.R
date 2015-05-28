@@ -11,7 +11,5 @@
 ##' 
 
 computeRatio = function(numerator, denominator){
-    as.numeric(ifelse((numerator == 0 & denominator == 0) |
-                      denominator == 0, NA,
-                      numerator/denominator))
+    ifelse(denominator == 0, NA_real_, numerator/denominator)
 }
