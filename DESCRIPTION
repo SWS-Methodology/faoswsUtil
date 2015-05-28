@@ -8,7 +8,8 @@ Maintainer: Joshua Browning <joshua.browning@fao.org>
 Description: This package provides extra functionality to the faosws package.
 Imports:
     data.table (>= 1.9.2),
-    faoswsFlag
+    faoswsFlag,
+    faosws
 License: GPL (>= 3)
 LazyData: yes
 ZipData: no

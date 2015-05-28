@@ -27,7 +27,8 @@ m492fs = function(m49Codes){
              "work.")
     }
     
-    areaMapping = GetTableData(schemaName = "ess", tableName = "fal_2_m49")
+    areaMapping = faosws::GetTableData(schemaName = "ess",
+                                       tableName = "fal_2_m49")
     ## Check that areaMapping is still 1 to 1
     if(length(unique(areaMapping$fal)) < nrow(areaMapping) |
        length(unique(areaMapping$m49)) < nrow(areaMapping))
