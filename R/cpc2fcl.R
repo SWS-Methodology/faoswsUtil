@@ -63,7 +63,10 @@ cpc2fcl = function(cpcCodes, returnFirst = FALSE){
         if(returnFirst){
             warning("At least one CPC code maps to multiple FCL codes.  No ",
                  "good solution is available, but the code is using first ",
-                 "numeric code to map to.")
+                 "numeric code to map to.  At the time of the writing of the ",
+                 "code, however, the only issue was that maize is mapped to ",
+                 "maize, white maize, and popcorn.  Mapping maize to maize ",
+                 "and ignoring white maize/popcorn probably isn't too bad.")
             map[, fcl := min(fcl), by = cpc]
             map = unique(map)
             ## Merge the fclCodes with the mapping table

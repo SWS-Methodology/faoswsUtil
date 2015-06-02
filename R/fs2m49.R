@@ -30,8 +30,7 @@ fs2m49 = function(fsCodes){
     areaMapping = faosws::GetTableData(schemaName = "ess",
                                        tableName = "fal_2_m49")
     ## Check that areaMapping is still 1 to 1
-    if(length(unique(areaMapping$fal)) < nrow(areaMapping) |
-       length(unique(areaMapping$m49)) < nrow(areaMapping))
+    if(length(unique(areaMapping$fal)) < nrow(areaMapping))
         stop("ess.fal_2_m49 (on the SWS) is no longer a one-to-one map and ",
              "the R code needs to be updated to reflect that!")
     
