@@ -1,8 +1,8 @@
 Package: faoswsUtil
 Type: Package
 Title: A suite of function to support the FAO new Statistical Working System.
-Version: 0.1.6
-Date: 2015-05-28
+Version: 0.1.7
+Date: 2015-06-30
 Author: Michael C. J. Kao <michael.kao@fao.org>, Aleksander Matrunich <aleksander.matrunich@fao.org>, Joshua M. Browning <joshua.browning@fao.org>
 Maintainer: Joshua Browning <joshua.browning@fao.org>
 Description: This package provides extra functionality to the faosws package.
