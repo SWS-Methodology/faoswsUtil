@@ -37,11 +37,11 @@ yieldMethodFlag column when yield is computed.}
 \item{newMethodFlag}{The character value that should be placed in the
 yieldMethodFlag column when yield is computed.}
 
+\item{flagTable}{Currently not used.  Was originally implemented for flag
+aggregation, but the decision was to alway have yield written as "I"/"i".}
+
 \item{unitConversion}{yield is computed as (production)/(area harvested)*
   (unit conversion).}
-
-\item{Currently}{not used.  Was originally implemented for flag aggregation,
-but the decision was to alway have yield written as "I"/"i".}
 }
 \description{
 Function to compute and update yield

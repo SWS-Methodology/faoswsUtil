@@ -29,7 +29,7 @@ This function maps CPC to FCL codes using the table defined within the SWS.
 }
 \examples{
 \dontrun{
-cpc2fcl("0111", "23110", "01447")
+cpc2fcl(c("0111", "23110", "01447"))
 cpc2fcl(fcl2cpc(c("0015", "0016", "0265")))
 }
 }

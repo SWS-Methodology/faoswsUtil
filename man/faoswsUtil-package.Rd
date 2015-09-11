@@ -2,6 +2,7 @@
 % Please edit documentation in R/faoswsUtil-package.R
 \docType{package}
 \name{faoswsUtil-package}
+\alias{faoswsUtil}
 \alias{faoswsUtil-package}
 \title{A suite of function to support the manipulation of data for
 working with the FAO new statistical working system.}
