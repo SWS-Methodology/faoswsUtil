@@ -12,7 +12,9 @@
 ##'   value columns are available: extraction rate and share.  The logic of the
 ##'   old system MAY have been that missing extraction rates were assumed to be
 ##'   1.
-##'   
+##' 
+##' @export
+##' 
 
 getCommodityTree = function(geographicAreaM49 = NULL, timePointYears = NULL){
     ## Data Quality Checks
