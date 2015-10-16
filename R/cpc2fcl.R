@@ -38,9 +38,11 @@ cpc2fcl = function(cpcCodes, returnFirst = FALSE){
     ## Load the mapping table
     map = faosws::GetTableData(schemaName = "ess", tableName = "fcl_2_cpc")
     
-    ## Merge the fclCodes with the mapping table
+    ## Merge the fclCodes with the mapping table Note: allow.cartesian = TRUE
+    ## because cpc 0112 maps to FCL 56, 67, and 68.  This is handled later, but
+    ## it can throw an error here...
     out = merge(data.table(cpc = unique(cpcCodes)), map, by = "cpc",
-                all.x = TRUE)
+                all.x = TRUE, allow.cartesian = TRUE)
     ## Set the key to FCL so we can sort by passing in the vector
     setkeyv(out, "cpc")
     result = out[cpcCodes, fcl, allow.cartesian = TRUE]
