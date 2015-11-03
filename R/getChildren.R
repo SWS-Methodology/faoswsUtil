@@ -27,7 +27,7 @@ getChildren = function(commodityTree, parentColname, childColname, topNodes,
     stopifnot(is(commodityTree, "data.table"))
     stopifnot(c(parentColname, childColname) %in% colnames(commodityTree))
     
-    outNodes = topNodes
+    oldNodes = topNodes
     newNodes = topNodes
     while(length(newNodes) > 0){
         if(parentFlag){
