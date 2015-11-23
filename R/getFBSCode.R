@@ -3,7 +3,7 @@
 ##' This function takes a FCL commodity code and returns the FBS aggregate code 
 ##' that contains this data.
 ##' 
-##' @param commCodeFCL
+##' @param commCodeFCL A vector of commodity codes in the FCL coding format.
 ##'   
 ##' @return A vector of FBS codes corresponding to the passed FCL codes. 
 ##'   Missing codes are returned with a NA.
