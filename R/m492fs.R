@@ -27,8 +27,7 @@ m492fs = function(m49Codes){
              "work.")
     }
     
-    areaMapping = faosws::GetTableData(schemaName = "ess",
-                                       tableName = "fal_2_m49")
+    areaMapping = faosws::ReadDatatable(table = "fal_2_m49")
     ## Check that areaMapping is still 1 to 1
     if(length(unique(areaMapping$m49)) < nrow(areaMapping))
         stop("ess.fal_2_m49 (on the SWS) is no longer a one-to-one map and ",

@@ -18,7 +18,7 @@ getFBSCode = function(commCodeFCL){
     commCodeFCL = data.table(item = commCodeFCL)
     setkeyv(commCodeFCL, "item")
     
-    map = GetTableData(schemaName = "ess", tableName = "extraction_rates")
+    map = faosws::ReadDatatable(table = "extraction_rates")
     map[, target_code := as.character(target_code)]
     ## If we have an top node (i.e. no parents) with a target_code of NA, our
     ## while loop below will never end.  So, instead, assign some non-FBS code

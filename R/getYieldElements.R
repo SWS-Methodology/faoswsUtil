@@ -26,8 +26,7 @@ getYieldCodes = function(itemCode){
         warning(paste0("Not all itemCodes are in the database!  Example(s):\n",
                 paste(missingCodes, collapse = "\n")))
     }
-    codeMap = GetTableData(schemaName = "ess",
-                           tableName = "item_type_yield_elements")
+    codeMap = faosws::ReadDatatable(table = "item_type_yield_elements")
     setnames(itemData, "type", "item_type")
     out = merge(itemData, codeMap, by = "item_type")
     out = out[, c("code", "element_31", "element_41", "element_51", "factor"),
