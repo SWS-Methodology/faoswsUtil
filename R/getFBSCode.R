@@ -15,8 +15,6 @@ getFBSCode = function(commCodeFCL){
     if(is.character(commCodeFCL)){
         commCodeFCL = as.numeric(commCodeFCL)
     }
-    commCodeFCL = data.table(item = commCodeFCL)
-    setkeyv(commCodeFCL, "item")
     
     map = faosws::ReadDatatable(table = "extraction_rates")
     map[, target_code := as.character(target_code)]
@@ -27,18 +25,23 @@ getFBSCode = function(commCodeFCL){
         target_code := paste0("CPC", item)]
     setkeyv(map, "item")
     
-#     map[item == 1041, parent := 1035]
-#     map[item == 1042, parent := 1035]
-#     
-    result = merge(map, commCodeFCL)
+    #     map[item == 1041, parent := 1035]
+    #     map[item == 1042, parent := 1035]
+    #     
+    result = merge(map, data.table(item = commCodeFCL, index = 1:length(commCodeFCL)), 
+                   by="item", all.y=T)
+    setkeyv(result, "item")
+    result <- result[order(result$index)]
     ## Processed products won't have FBS codes.  So, assign the parent (primary 
     ## products have themselves as parents) to the item, and continue to merge
     ## back with the map until you have all FBS codes.
     while(any(is.na(result$target_code))){
         result[, item := parent]
-        result = result[, list(item)] # "list" to stay data.table
+        result = result[, list(item, index)] # "list" to stay data.table
         setkey(result, item)
-        result = merge(map, result)
+        result = merge(map, result, by="item", all.y=T)
+        result <- result[order(result$index)]
     }
+    
     result[, target_code]
 }
