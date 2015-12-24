@@ -30,7 +30,7 @@ fcl2cpc = function(fclCodes){
              "pad your current codes with zeroes.")
     
     ## Load the mapping table
-    map = faosws::GetTableData(schemaName = "ess", tableName = "fcl_2_cpc")
+    map = faosws::ReadDatatable(table = "fcl_2_cpc")
     
     ## Merge the fclCodes with the mapping table
     out = merge(data.table(fcl = unique(fclCodes)), map, by = "fcl",

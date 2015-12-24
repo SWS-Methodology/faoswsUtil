@@ -38,6 +38,10 @@ removeZeroConflict = function(data, value1, value2, observationFlag1,
     cnames = c(value1, value2, observationFlag1, observationFlag2,
                methodFlag1, methodFlag2)
     stopifnot(is(cnames, "character"))
+    if(length(cnames) < 6){
+        stop("One of the column names supplied (value1/2, observationFlag1/2 ",
+             ", methodFlag1/2 is NULL!")
+    }
     stopifnot(cnames %in% colnames(data))
     
     ### Identify points where area = 0 and production != 0 (or vice versa)

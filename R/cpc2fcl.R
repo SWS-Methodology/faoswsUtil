@@ -6,7 +6,7 @@
 ##' @param returnFirst Logical.  If one CPC code maps to multiple FCL codes, we 
 ##'   have no way of correctly mapping a single code without more information. 
 ##'   The code is designed to throw an error at this point, but if you want to 
-##'   force a result (and return the lwoest numerical code of all the matches) 
+##'   force a result (and return the lowest numerical code of all the matches) 
 ##'   then set this to TRUE.  In that case, only a warning will be issued if
 ##'   this type of mapping occurs.  In general, setting this to TRUE is bad
 ##'   practice.  However, the mapping at the time of this writing is entirely
@@ -19,7 +19,7 @@
 ##' 
 ##' @examples
 ##' \dontrun{
-##' cpc2fcl("0111", "23110", "01447")
+##' cpc2fcl(c("0111", "23110", "01447"))
 ##' cpc2fcl(fcl2cpc(c("0015", "0016", "0265")))
 ##' }
 ##' 
@@ -36,11 +36,13 @@ cpc2fcl = function(cpcCodes, returnFirst = FALSE){
     }
     
     ## Load the mapping table
-    map = faosws::GetTableData(schemaName = "ess", tableName = "fcl_2_cpc")
+    map = faosws::ReadDatatable(table = "fcl_2_cpc")
     
-    ## Merge the fclCodes with the mapping table
+    ## Merge the fclCodes with the mapping table Note: allow.cartesian = TRUE
+    ## because cpc 0112 maps to FCL 56, 67, and 68.  This is handled later, but
+    ## it can throw an error here...
     out = merge(data.table(cpc = unique(cpcCodes)), map, by = "cpc",
-                all.x = TRUE)
+                all.x = TRUE, allow.cartesian = TRUE)
     ## Set the key to FCL so we can sort by passing in the vector
     setkeyv(out, "cpc")
     result = out[cpcCodes, fcl, allow.cartesian = TRUE]
