@@ -11,7 +11,8 @@ preprocess_key_tree(data, dim_name, key_table_in)
 
 \item{dim_name}{The name of the dimension in the data to aggregate}
 
-\item{key_table_in}{The key tree to prepare in the form data.table(parent,children)}
+\item{key_table_in}{The key tree to prepare in the form
+data.table(parent,children)}
 }
 \value{
 The prepared key tree with an added "level" column
