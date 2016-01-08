@@ -33,7 +33,7 @@
 ##' key_tree <- GetCodeTree (domain="agriculture", dataset="agriculture", dimension="measuredItemCPC")
 ##' flags <- data.table (flagObservationStatus=c("I"), flagMethod=c("s"))
 ##'
-##' ag_data <- AggregateDimension (data, "measuredItemCPC", key_tree, agg_flags=flags)
+##' ag_data <- aggregateDimension (data, "measuredItemCPC", key_tree, agg_flags=flags)
 ##' 
 ##' ## Another example
 ##' 
@@ -56,7 +56,7 @@
 ##' keys <- keys[!(keys %in% c("Value", "myFlag"))]
 ##' 
 ##' ## Do the aggregation
-##' aggs <- AggregateDimension(data, keys, "targetDimension",
+##' aggs <- aggregateDimension(data, keys, "targetDimension",
 ##'                            key_tree, agg_flags = flags)
 ##' 
 ##' aggs
@@ -68,9 +68,9 @@
 ##' 
 ##' @import faosws data.table plyr
 ##' 
-##' @export AggregateDimension
+##' @export aggregateDimension
 ###############################################################################
-AggregateDimension = function (data, keys, dim_name, key_tree, agg_flags=NULL, high_level=0)
+aggregateDimension = function (data, keys, dim_name, key_tree, agg_flags=NULL, high_level=0)
 {
   
   IS_AGG_COL <- "is_aggregate"
