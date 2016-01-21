@@ -18,7 +18,9 @@
 ##'   
 ##' @return A numeric vector containing topNodes as well as all descendants (or
 ##'   ancestors) of topNodes.
-##'   
+##' 
+##' @export
+##' 
 
 getChildren = function(commodityTree, parentColname, childColname, topNodes,
                        parentFlag = TRUE){
