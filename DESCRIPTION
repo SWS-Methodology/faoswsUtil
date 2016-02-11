@@ -11,6 +11,10 @@ Imports:
     data.table (>= 1.9.2),
     faoswsFlag,
     faosws (>= 0.5.0)
+Suggests:
+    RJDBC,
+    stringr,
+    reshape2
 License: GPL (>= 3)
 LazyData: yes
 ZipData: no
