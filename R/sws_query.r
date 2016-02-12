@@ -22,7 +22,7 @@
 #'   identificational vectors be converted to factors.
 #' @param dbquery optional string with SQL-query to request from SWS.
 #' @param class.path optional string with path to Oracle Java Data Base
-#'   Connectivity library. By default 'ojdbc14.jar' in the package.
+#'   Connectivity library. By default 'ojdbc14.jar' in the working directory.
 #' @param user optional string with name of SWS DB user instead of default user 
 #'   'demo'.
 #' @param pass optional string with password of SWS DB user instead of default 
@@ -38,7 +38,7 @@
 sws_query <- function(area, item, ele, year, symb = T, melted = TRUE, 
                       value.names = T, 
                       stringsAsFactors = default.stringsAsFactors(),
-                      dbquery, class.path = file.path(path.package("faoswsFeed"),'ojdbc14.jar'),
+                      dbquery, class.path = file.path(getwd(),'ojdbc14.jar'),
                       user = 'demo', pass = 'demo') {
   #Load required packages
   library(RJDBC);library(stringr);library(reshape2)

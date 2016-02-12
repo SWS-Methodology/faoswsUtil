@@ -6,8 +6,8 @@
 \usage{
 sws_query(area, item, ele, year, symb = T, melted = TRUE, value.names = T,
   stringsAsFactors = default.stringsAsFactors(), dbquery,
-  class.path = file.path(path.package("faoswsFeed"), "ojdbc14.jar"),
-  user = "demo", pass = "demo")
+  class.path = file.path(getwd(), "ojdbc14.jar"), user = "demo",
+  pass = "demo")
 }
 \arguments{
 \item{area}{numeric or character vector with countries' ids (numeric) or 
@@ -37,7 +37,7 @@ identificational vectors be converted to factors.}
 \item{dbquery}{optional string with SQL-query to request from SWS.}
 
 \item{class.path}{optional string with path to Oracle Java Data Base
-Connectivity library. By default 'ojdbc14.jar' in the package.}
+Connectivity library. By default 'ojdbc14.jar' in the working directory.}
 
 \item{user}{optional string with name of SWS DB user instead of default user 
 'demo'.}
@@ -51,6 +51,8 @@ RJDBC stringr reshape2}
 data.frame with results from SWS DB.
 }
 \description{
-Get data from FAO statistical working system (SWS).
+Using this function is discouraged and shouldn't be done unless making
+comparisons between the old and new working system. This function will not
+work on the SWS. This is intentional.
 }
 
