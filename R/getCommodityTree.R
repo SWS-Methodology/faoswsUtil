@@ -33,7 +33,7 @@ getCommodityTree = function(geographicAreaM49 = NULL, timePointYears = NULL){
                                dimension = "geographicAreaM49")
     allAreaCodes = allAreaCodes[type == "country", code]
     allYears = GetCodeList(domain = "agriculture", dataset = "aupus_ratio",
-                               dimension = "timePointYears")[, code]
+                               dimension = "timePointYearsSP")[, code]
     allItemCodes = GetCodeList(domain = "agriculture", dataset = "aupus_ratio",
                                dimension = "measuredItemCPC")[, code]
     if(!is.null(geographicAreaM49)){
