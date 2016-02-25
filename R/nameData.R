@@ -32,7 +32,7 @@ nameData <- function(domain, dataset, dt, except, append = "_description"){
     newdata_names <- names(newdata)
     shared_name <- intersect(newdata_names, names(codes2merge[[i]]))
     stopifnot(length(shared_name) == 1)
-    newdata <- merge(newdata, codes2merge[[i]], by=shared_name)
+    newdata <- merge(newdata, codes2merge[[i]], by = shared_name, all.x = TRUE)
     setcolorder(newdata, 
                 append(newdata_names, paste0(shared_name, 
                                              append), 
