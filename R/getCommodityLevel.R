@@ -18,7 +18,9 @@
 ##'   and level.  A level of 0 indicates a top level node which is then 
 ##'   processed into a level 1 node.  Level 1 nodes are processed into level 2, 
 ##'   and so on.
-##'   
+##' 
+##' @export
+##' 
 
 getCommodityLevel = function(commodityTree, parentColname, childColname,
                              returnMinLevel = TRUE){

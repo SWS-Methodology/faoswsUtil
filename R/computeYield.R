@@ -57,7 +57,7 @@ computeYield = function(data, productionValue, productionObservationFlag,
     ## If not updateable, assign a missing value/flag:
     data[!updateable, yieldValue := 0]
     data[!updateable, yieldObservationFlag := "M"]
-    data[!updateable, yieldMethodFlag := "n"]
+    data[!updateable, yieldMethodFlag := "u"]
 
     setnames(x = data,
              old = c("productionValue", "productionObservationFlag",

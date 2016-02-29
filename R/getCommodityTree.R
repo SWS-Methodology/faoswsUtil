@@ -33,7 +33,7 @@ getCommodityTree = function(geographicAreaM49 = NULL, timePointYears = NULL){
                                dimension = "geographicAreaM49")
     allAreaCodes = allAreaCodes[type == "country", code]
     allYears = GetCodeList(domain = "agriculture", dataset = "aupus_ratio",
-                               dimension = "timePointYears")[, code]
+                               dimension = "timePointYearsSP")[, code]
     allItemCodes = GetCodeList(domain = "agriculture", dataset = "aupus_ratio",
                                dimension = "measuredItemCPC")[, code]
     if(!is.null(geographicAreaM49)){
@@ -69,15 +69,10 @@ getCommodityTree = function(geographicAreaM49 = NULL, timePointYears = NULL){
     shareData[, c("measuredShare", "flagShare") := NULL]
     ## Merge together the trees
     setnames(ratioData, "measuredItemCPC", "measuredItemChildCPC")
-    ## Kinda a hack here...  If no rows are returned, faosws and data.table will
-    ## return a data.table with 0 rows and classes of type logical instead of
-    ## character.
-    ratioData[, geographicAreaM49 := as.character(geographicAreaM49)]
-    ratioData[, measuredItemChildCPC := as.character(measuredItemChildCPC)]
-    ratioData[, timePointYearsSP := as.character(timePointYearsSP)]
-    shareData[, geographicAreaM49 := as.character(geographicAreaM49)]
-    shareData[, measuredItemChildCPC := as.character(measuredItemChildCPC)]
-    shareData[, timePointYearsSP := as.character(timePointYearsSP)]
+
+    # Note to debuggers - if you get tables with no rows and no columns, revert
+    # the commit: Removed hack fix for zero column data.table from GetData
+    
     tree = merge(ratioData, shareData,
                  by = c("geographicAreaM49", "measuredItemChildCPC",
                         "timePointYearsSP"), all = TRUE)
@@ -93,15 +88,10 @@ getCommodityTree = function(geographicAreaM49 = NULL, timePointYears = NULL){
     shareData[, c("measuredShare", "flagShare") := NULL]
     ## Merge together the trees
     setnames(ratioData, "measuredItemCPC", "measuredItemChildCPC")
-    ## Kinda a hack here...  If no rows are returned, faosws and data.table will
-    ## return a data.table with 0 rows and classes of type logical instead of
-    ## character.
-    ratioData[, geographicAreaM49 := as.character(geographicAreaM49)]
-    ratioData[, measuredItemChildCPC := as.character(measuredItemChildCPC)]
-    ratioData[, timePointYearsSP := as.character(timePointYearsSP)]
-    shareData[, geographicAreaM49 := as.character(geographicAreaM49)]
-    shareData[, measuredItemChildCPC := as.character(measuredItemChildCPC)]
-    shareData[, timePointYearsSP := as.character(timePointYearsSP)]
+
+    # Note to debuggers - if you get tables with no rows and no columns, revert
+    # the commit: Removed hack fix for zero column data.table from GetData
+    
     treeYear = merge(ratioData, shareData,
                  by = c("geographicAreaM49", "measuredItemChildCPC",
                         "timePointYearsSP"), all = TRUE)
@@ -118,15 +108,10 @@ getCommodityTree = function(geographicAreaM49 = NULL, timePointYears = NULL){
     shareData[, c("measuredShare", "flagShare") := NULL]
     ## Merge together the trees
     setnames(ratioData, "measuredItemCPC", "measuredItemChildCPC")
-    ## Kinda a hack here...  If no rows are returned, faosws and data.table will
-    ## return a data.table with 0 rows and classes of type logical instead of
-    ## character.
-    ratioData[, geographicAreaM49 := as.character(geographicAreaM49)]
-    ratioData[, measuredItemChildCPC := as.character(measuredItemChildCPC)]
-    ratioData[, timePointYearsSP := as.character(timePointYearsSP)]
-    shareData[, geographicAreaM49 := as.character(geographicAreaM49)]
-    shareData[, measuredItemChildCPC := as.character(measuredItemChildCPC)]
-    shareData[, timePointYearsSP := as.character(timePointYearsSP)]
+
+    # Note to debuggers - if you get tables with no rows and no columns, revert
+    # the commit: Removed hack fix for zero column data.table from GetData
+    
     treeGeneric = merge(ratioData, shareData,
                  by = c("geographicAreaM49", "measuredItemChildCPC",
                         "timePointYearsSP"), all = TRUE)

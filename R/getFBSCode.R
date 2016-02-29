@@ -32,6 +32,7 @@ getFBSCode = function(commCodeFCL){
                    by="item", all.y=T)
     setkeyv(result, "item")
     result <- result[order(result$index)]
+    iterCount = 0
     ## Processed products won't have FBS codes.  So, assign the parent (primary 
     ## products have themselves as parents) to the item, and continue to merge
     ## back with the map until you have all FBS codes.
@@ -41,6 +42,11 @@ getFBSCode = function(commCodeFCL){
         setkey(result, item)
         result = merge(map, result, by="item", all.y=T)
         result <- result[order(result$index)]
+        iterCount = iterCount + 1
+        if(iterCount >= 10){
+            stop("Unable to find all FBS codes after 10 iterations!  It's ",
+                 "likely that there's a problem with your commodity tree...")
+        }
     }
     
     result[, target_code]
