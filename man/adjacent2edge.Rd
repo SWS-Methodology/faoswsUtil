@@ -22,8 +22,8 @@ representation.
 }
 \examples{
 
-require(data.table)
-children <- matrix(sample(letters, 4 * 3, replace = T), nrow=3)
+library(data.table)
+children <- matrix(sample(letters, 4 * 3, replace = TRUE), nrow=3)
 children <- apply(children, 1, paste0, collapse = ", ")
 adj <- data.table(parent = c("a", "b", "c"), children = children)
 

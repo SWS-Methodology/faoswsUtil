@@ -14,7 +14,7 @@
 ##' attribute.
 ##'
 ##' @param data A long form data.table with the data to be aggregated - result
-##'   of a \link{\code{GetData}} call
+##'   of a \code{faosws::GetData} call
 ##' @param keys A vector containing the data.table key column names (i.e. not
 ##'   the value of flag columns)
 ##' @param dim_name The name of the dimension to be aggregated
@@ -28,8 +28,8 @@
 ##' @return The aggregated rows of data as a data.table
 ##'
 ##' @examples \dontrun{
-##' require(faosws)
-##' require(data.table)
+##' library(faosws)
+##' library(data.table)
 ##' data <- GetData(swsContext.datasets[[1]])
 ##' keys <- colnames(data)
 ##' keys <- keys[!(keys %in% c("Value", "flagObservationStatus", "flagMethod"))]
@@ -67,7 +67,7 @@
 ##' attr(aggs, "orphans")
 ##' }
 ##'
-##' @author J.Browning, N.A.Connell
+##' @author N.A.Connell
 ##' 
 ##' @import faosws data.table plyr
 ##' 

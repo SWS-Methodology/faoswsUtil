@@ -9,7 +9,7 @@ aggregateDimension(data, keys, dim_name, key_tree, agg_flags = NULL,
 }
 \arguments{
 \item{data}{A long form data.table with the data to be aggregated - result
-of a \link{\code{GetData}} call}
+of a \code{faosws::GetData} call}
 
 \item{keys}{A vector containing the data.table key column names (i.e. not
 the value of flag columns)}
@@ -45,8 +45,8 @@ attribute.
 }
 \examples{
 \dontrun{
-require(faosws)
-require(data.table)
+library(faosws)
+library(data.table)
 data <- GetData(swsContext.datasets[[1]])
 keys <- colnames(data)
 keys <- keys[!(keys \%in\% c("Value", "flagObservationStatus", "flagMethod"))]
@@ -86,6 +86,6 @@ attr(aggs, "orphans")
 
 }
 \author{
-J.Browning, N.A.Connell
+N.A.Connell
 }
 

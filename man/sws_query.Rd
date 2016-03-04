@@ -43,9 +43,7 @@ Connectivity library. By default 'ojdbc14.jar' in the working directory.}
 'demo'.}
 
 \item{pass}{optional string with password of SWS DB user instead of default 
-  password 'demo'.
-  
-RJDBC stringr reshape2}
+password 'demo'.}
 }
 \value{
 data.frame with results from SWS DB.
