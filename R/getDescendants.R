@@ -24,7 +24,7 @@ getDescendants = function(tree, parentColname, childColname){
   
   ## Initialize a data.table with the top nodes and their children, then iterate
   ## through the tree.
-  out = tree[measuredItemParentFS %in% topNodes, ]
+  out = tree[get(parentColname) %in% topNodes, ]
   out[, level := 1]
   currentTree = tree[!get(parentColname) %in% topNodes, ]
   toMerge = copy(tree)
