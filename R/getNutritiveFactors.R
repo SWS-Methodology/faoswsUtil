@@ -84,7 +84,7 @@ getNutritiveFactors = function(geographicAreaM49 = NULL, measuredElement = NULL,
     toInclude = allData[timePointYearsSP == "0" & geographicAreaM49 != "0", ]
     toInclude[, timePointYearsSP := NULL]
     toInclude[, mergeDummy := 1]
-    yearDT = data.table(timePointYearsSP = yearVals[yearVals != "0"],
+    yearDT = data.table(timePointYearsSP = yearKeys[yearKeys != "0"],
                         mergeDummy = 1)
     toInclude = merge(toInclude, yearDT, by = "mergeDummy",
                       allow.cartesian = TRUE)
