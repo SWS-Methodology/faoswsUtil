@@ -34,7 +34,7 @@
 ##' @export
 ##' 
 
-getNutriviteFactors = function(geographicAreaM49 = NULL, measuredElement = NULL,
+getNutritiveFactors = function(geographicAreaM49 = NULL, measuredElement = NULL,
                                measuredItemCPC = NULL, timePointYearsSP = NULL){
     ## Input Checks
     if(!exists("swsContext.datasets")){
