@@ -40,6 +40,10 @@ getCommodityLevel = function(commodityTree, parentColname, childColname,
     levelData[node %in% topNodes, level := 0]
     currentLevel = 1
     while(any(is.na(levelData$level))){
+        if(currentLevel > 15){
+            stop("Currently found a node at a level > 15!  There's probably ",
+                 "an issue with your tree, or with getCommodityLevel()")
+        }
         identifiedNodes = levelData[!is.na(level), node]
         children = commodityTree[get(parentColname) %in% identifiedNodes,
                                  unique(get(childColname))]
