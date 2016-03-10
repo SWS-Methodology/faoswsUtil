@@ -155,6 +155,7 @@ getCommodityTree = function(geographicAreaM49 = NULL, timePointYears = NULL){
     setcolorder(finalTree, c("geographicAreaM49", "timePointYearsSP",
                              "measuredItemParentCPC", "measuredItemChildCPC",
                              "extractionRate", "share"))
+    #Convert extraction rate and share from percentage to ratio
     finalTree[, extractionRate := extractionRate / 100]
     finalTree[, share := share / 100]
     finalTree
