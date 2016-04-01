@@ -5,8 +5,9 @@
 ##' have the parent nodes and the second column should have a character vector
 ##' containing all the children nodes separated by commas (i.e. adjacent list
 ##' format).
+##' @param sep character. The separator between elements of the second column
 ##'
-##' @return A data.table object containing two columns: parent and children.
+##' @return A data.table object containing two columns: parent and children
 ##' 
 ##' @examples
 ##' 
@@ -21,13 +22,13 @@
 ##' 
 
 
-adjacent2edge = function(tree){
+adjacent2edge = function(tree, sep = ", "){
     
     ## Data Quality Checks
     stopifnot(is(tree, "data.table"))
     stopifnot(sapply(tree, class) == c("character", "character"))
     
-    children = strsplit(unlist(tree[, 2, with = FALSE]), ", ")
+    children = strsplit(unlist(tree[, 2, with = FALSE]), sep)
     data.table(parent = rep(unlist(tree[, 1, with = FALSE]),
                    sapply(children, length)),
                children = unlist(children))

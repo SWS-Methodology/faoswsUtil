@@ -5,16 +5,18 @@
 \title{Function to convert tree in adjacent list format to edge
 representation.}
 \usage{
-adjacent2edge(tree)
+adjacent2edge(tree, sep = ", ")
 }
 \arguments{
 \item{tree}{A data.table object with two columns.  The first column should
 have the parent nodes and the second column should have a character vector
 containing all the children nodes separated by commas (i.e. adjacent list
 format).}
+
+\item{sep}{character. The separator between elements of the second column}
 }
 \value{
-A data.table object containing two columns: parent and children.
+A data.table object containing two columns: parent and children
 }
 \description{
 Function to convert tree in adjacent list format to edge
