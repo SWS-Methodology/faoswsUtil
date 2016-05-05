@@ -1,5 +1,5 @@
 ##' Remove Zero Conflicts
-##' 
+##'
 ##' The function examines two variables of a data.table object.  If one
 ##' variable is 0 and another is not, then both variables are marked as
 ##' missing.  This is useful for variables which should always be zero
@@ -24,15 +24,15 @@
 ##' @return No value is returned.  However, the object "data" which was passed
 ##' to this function is modified (some values are marked as missing if the have
 ##' conflicting zeroes).
-##' 
+##'
 ##' @export
-##' 
+##'
 
 removeZeroConflict = function(data, value1, value2, observationFlag1,
                               observationFlag2, methodFlag1, methodFlag2,
                               missingObservationFlag = "M",
                               missingMethodFlag = "u"){
-    
+
     ### Data Quality Checks
     stopifnot(is(data, "data.table"))
     cnames = c(value1, value2, observationFlag1, observationFlag2,
@@ -43,15 +43,18 @@ removeZeroConflict = function(data, value1, value2, observationFlag1,
              ", methodFlag1/2 is NULL!")
     }
     stopifnot(cnames %in% colnames(data))
-    
-    ### Identify points where area = 0 and production != 0 (or vice versa)
-    filter1 = data[, get(value1) == 0 & get(value2) != 0]
-    filter2 = data[, get(value1) != 0 & get(value2) == 0]
-    
-    ### For problematic observations, set both vals to NA and flags to missing
-    data[filter1 | filter2, c(value1, value2,
-                              observationFlag1, observationFlag2,
-                              methodFlag1, methodFlag2) :=
-             as.list(rep(c(NA_real_, missingObservationFlag,
-                           missingMethodFlag), each = 2))]
+
+    ## Identify points where area = 0 and production != 0 (or vice versa)
+    dataCopy = copy(data)
+    filter1 = dataCopy[, get(value1) == 0 & get(value2) != 0]
+    filter2 = dataCopy[, get(value1) != 0 & get(value2) == 0]
+
+    ### For problematic observations, set the zero value to missing.
+    dataCopy[filter1 , `:=`(c(value1, observationFlag1, methodFlag1, ),
+                        as.list(c(NA_real_, missingObservationFlag,
+                                  missingMethodFlag)))]
+    dataCopy[filter2 , `:=`(c(value2, observationFlag2, methodFlag2, ),
+                        as.list(c(NA_real_, missingObservationFlag,
+                                  missingMethodFlag)))]
+    dataCopy
 }
