@@ -1,3 +1,23 @@
+##' This function denormalise data in the SWS format
+##'
+##' @param normalisedData normalised data to be denormalise
+##' @param denormalisedKey The key/variable that will be denormalised.
+##' @param areaVar The column name corresponding to the geographic area.
+##' @param itemVar The column name corresponding to the commodity item.
+##' @param elementVar The column name corresponds to the measured element.
+##' @param yearVar The column name corresponds to the time dimension.
+##' @param flagObsVar The column name corresponds to the observation status
+##'     flag.
+##' @param flagMethodVar The column name corresponds to the method flag.
+##' @param valueVar The column name corresponds to the value columne.
+##'
+##' @return The denormalised data
+##'
+##' @export
+##'
+
+
+
 denormalise = function(normalisedData,
                        denormaliseKey,
                        areaVar = "geographicAreaM49",
@@ -7,7 +27,7 @@ denormalise = function(normalisedData,
                        flagObsVar = "flagObservationStatus",
                        flagMethodVar = "flagMethod",
                        valueVar = "Value"){
-    
+
     allKey = c(areaVar, itemVar, elementVar, yearVar)
     measuredTriplet = c(valueVar, flagObsVar, flagMethodVar)
     normaliseKey = setdiff(allKey, denormaliseKey)
