@@ -2,7 +2,7 @@
 % Please edit documentation in R/computeRatio.R
 \name{computeRatio}
 \alias{computeRatio}
-\title{Function for computing the yield}
+\title{Function for computing ratio}
 \usage{
 computeRatio(numerator, denominator)
 }
@@ -12,7 +12,6 @@ computeRatio(numerator, denominator)
 \item{denominator}{The value of the denominator.}
 }
 \description{
-This is a function to compute yield based on production and area
-harvested.
+This is to avoid division by zero
 }
 

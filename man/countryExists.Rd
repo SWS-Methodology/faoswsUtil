@@ -11,21 +11,21 @@ countryExists(countries, years, names = FALSE, warnNA = TRUE)
 
 \item{years}{vector of years, must be same length as countries}
 
-\item{names}{logical. TRUE when names are given. They must correspond to the 
+\item{names}{logical. TRUE when names are given. They must correspond to the
 descriptions in agriculture:agriculture}
 
-\item{warnNA}{logical. By default, a warning will be given when an NA is in 
+\item{warnNA}{logical. By default, a warning will be given when an NA is in
 countries or year. Setting this to \code{FALSE} suppresses it.}
 }
 \value{
-A vector (TRUE/FALSE) of the same length as countries and year 
+A vector (TRUE/FALSE) of the same length as countries and year
   corresponding to if they are a country or not. A warning - if this has NAs,
   subsetting by an NA can be problematic, i.e. result in no matches when
   subsetting.
 }
 \description{
-Some countries like the former Soviet union or South Sudan dissolve or are 
-formed during the period where we collect data. This function when given a 
+Some countries like the former Soviet union or South Sudan dissolve or are
+formed during the period where we collect data. This function when given a
 country or a year returns a boolean expressing if the country exists for that
 year.
 }

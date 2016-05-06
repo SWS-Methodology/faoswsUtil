@@ -2,20 +2,28 @@
 % Please edit documentation in R/remove0M.R
 \name{remove0M}
 \alias{remove0M}
-\title{Function to remove zero values which are missing.}
+\title{This function replaces value which are zero and has flag
+representing missing values with NA.}
 \usage{
-remove0M(data, value, flag, naFlag = "M")
+remove0M(data, valueVars, flagVars, missingFlag = "M")
 }
 \arguments{
 \item{data}{The data.table object containing the values.}
 
-\item{value}{The value of the observation.}
+\item{valueVars}{The value of the observation.}
 
-\item{flag}{The flag of the observation.}
+\item{flagVars}{The flag of the observation.}
 
-\item{naFlag}{The value of the flag which denotes missing value.}
+\item{missingFlag}{The value of the flag which denotes missing value.}
+}
+\value{
+The data object with all the (0, M) replaced with (NA, M)
 }
 \description{
-Function to remove zero values which are missing.
+TODO (Michael): This function is similar to the function in the
+                \pkg{faoswsUtil} package, but enables multiple
+                value and flag pairs and also returning the data
+                object. This function should replace the original
+                one in the \pkg{faoswsUtil} package
 }
 
