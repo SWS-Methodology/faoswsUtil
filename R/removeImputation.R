@@ -15,29 +15,32 @@
 ##' containing imputation data that is removed.
 ##' @param imputedFlag This character value specifies which observation flags
 ##' correspond to imputed values in the data.
-##' 
+##'
 ##' @details Observations which have observationFlag == imputedFlag will be
 ##' modified to missing.  Thus, the value will be updated to NA, the
 ##' observation flag will be updated to missingObservationFlag, and the method
 ##' flag will be updated to missingMethodFlag.
-##' 
+##'
 ##' @return No value is returned.  However, the object "data" which was passed
 ##' to this function is modified.
 ##'
 ##' @export
-##' 
+##'
 
 removeImputation = function(data, value, observationFlag, methodFlag,
                             missingObservationFlag = "M",
                             missingMethodFlag = "u",
                             imputedFlag = "I"){
-    
-    ### Data Quality Checks
+
+    ## Data Quality Checks
     stopifnot(is(data, "data.table"))
-    stopifnot(c(value, observationFlag, methodFlag) %in% colnames(data))
-    
-    imputedIndex = data[[observationFlag]] %in% imputedFlag
-    invisible(data[imputedIndex, `:=`(c(value, observationFlag, methodFlag),
-                                      list(NA, missingObservationFlag,
-                                           missingMethodFlag))])
+    if(all(c(value, observationFlag, methodFlag) %in% colnames(data))){
+        imputedIndex = data[[observationFlag]] %in% imputedFlag
+        data[imputedIndex, `:=`(c(value, observationFlag, methodFlag),
+                                list(NA, missingObservationFlag,
+                                     missingMethodFlag))]
+    } else {
+        warning("Selected columns are not present, no processing is performed")
+    }
+    invisible(data)
 }
