@@ -32,9 +32,10 @@ removeZeroConflict = function(data, value1, value2, observationFlag1,
                               observationFlag2, methodFlag1, methodFlag2,
                               missingObservationFlag = "M",
                               missingMethodFlag = "u"){
+    dataCopy = copy(data)
 
     ### Data Quality Checks
-    stopifnot(is(data, "data.table"))
+    stopifnot(is(dataCopy, "data.table"))
     cnames = c(value1, value2, observationFlag1, observationFlag2,
                methodFlag1, methodFlag2)
     stopifnot(is(cnames, "character"))
@@ -42,9 +43,8 @@ removeZeroConflict = function(data, value1, value2, observationFlag1,
         stop("One of the column names supplied (value1/2, observationFlag1/2 ",
              ", methodFlag1/2 is NULL!")
     }
-    if(all(cnames %in% colnames(data))){
+    if(all(cnames %in% colnames(dataCopy))){
         ## Identify points where area = 0 and production != 0 (or vice versa)
-        dataCopy = copy(data)
         filter1 = dataCopy[, get(value1) == 0 & get(value2) != 0]
         filter2 = dataCopy[, get(value1) != 0 & get(value2) == 0]
 
