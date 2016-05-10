@@ -42,19 +42,21 @@ removeZeroConflict = function(data, value1, value2, observationFlag1,
         stop("One of the column names supplied (value1/2, observationFlag1/2 ",
              ", methodFlag1/2 is NULL!")
     }
-    stopifnot(cnames %in% colnames(data))
+    if(all(cnames %in% colnames(data))){
+        ## Identify points where area = 0 and production != 0 (or vice versa)
+        dataCopy = copy(data)
+        filter1 = dataCopy[, get(value1) == 0 & get(value2) != 0]
+        filter2 = dataCopy[, get(value1) != 0 & get(value2) == 0]
 
-    ## Identify points where area = 0 and production != 0 (or vice versa)
-    dataCopy = copy(data)
-    filter1 = dataCopy[, get(value1) == 0 & get(value2) != 0]
-    filter2 = dataCopy[, get(value1) != 0 & get(value2) == 0]
-
-    ### For problematic observations, set the zero value to missing.
-    dataCopy[filter1 , `:=`(c(value1, observationFlag1, methodFlag1),
-                        as.list(c(NA_real_, missingObservationFlag,
-                                  missingMethodFlag)))]
-    dataCopy[filter2 , `:=`(c(value2, observationFlag2, methodFlag2),
-                        as.list(c(NA_real_, missingObservationFlag,
-                                  missingMethodFlag)))]
+        ## For problematic observations, set the zero value to missing.
+        dataCopy[filter1 , `:=`(c(value1, observationFlag1, methodFlag1),
+                                as.list(c(NA_real_, missingObservationFlag,
+                                          missingMethodFlag)))]
+        dataCopy[filter2 , `:=`(c(value2, observationFlag2, methodFlag2),
+                                as.list(c(NA_real_, missingObservationFlag,
+                                          missingMethodFlag)))]
+    } else {
+        warning("Selected columns are not present, no processing is performed")
+    }
     dataCopy
 }
