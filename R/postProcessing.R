@@ -14,6 +14,10 @@
 ##'
 
 postProcessing = function(data, params = defaultProcessingParameters()){
+    if(!all(c(param$yearValue), "Value", "flagObservationStatus") %in%
+       colnames(data))
+        stop("Required column not in data, this function assumes the data is ",
+             "normalised")
     dataCopy = copy(data)
     ## Converting year back to database
     dataCopy[, `:=`(c(params$yearValue), as.character(.SD[[params$yearValue]]))]
