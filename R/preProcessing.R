@@ -14,6 +14,11 @@
 ##'
 
 preProcessing = function(data, params = defaultProcessingParameters()){
+    if(!all(c(param$yearValue), "Value", "flagObservationStatus") %in%
+       colnames(data))
+        stop("Required column not in data, this function assumes the data is ",
+             "normalised")
+
     dataCopy = copy(data)
     ## Converting year to numeric for modelling
     dataCopy[, `:=`(c(params$yearValue), as.numeric(.SD[[params$yearValue]]))]
@@ -22,8 +27,8 @@ preProcessing = function(data, params = defaultProcessingParameters()){
         remove0M(dataCopy, valueVars = "Value", flagVars = "flagObservationStatus")
 
     if(any(is.na(dataWithout0M$flagObservationStatus))){
-        dataFilledMissingFlag = fillRecord(dataWithout0M)
-        return(dataFilledMissingFlag)
+        stop("There are non-existing records, please fill them with the ",
+             "fillRecord() function")
     } else {
         return(dataWithout0M)
     }
