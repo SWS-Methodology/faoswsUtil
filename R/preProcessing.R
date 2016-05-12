@@ -4,8 +4,6 @@
 ##' NOTE (Michael): The data is assumed to be normalised.
 ##'
 ##' @param data The data.table object
-##' @param params The processing parameters returned by the function
-##'     \code{defaultProcessingParameters}.
 ##'
 ##' @return A data.table with standard pre processing steps
 ##'     performed.
@@ -13,15 +11,14 @@
 ##' @export
 ##'
 
-preProcessing = function(data, params = defaultProcessingParameters()){
-    if(!all(c(param$yearValue), "Value", "flagObservationStatus") %in%
-       colnames(data))
+preProcessing = function(data){
+    if(!all("timePointYears", "Value", "flagObservationStatus") %in% colnames(data))
         stop("Required column not in data, this function assumes the data is ",
              "normalised")
 
     dataCopy = copy(data)
     ## Converting year to numeric for modelling
-    dataCopy[, `:=`(c(params$yearValue), as.numeric(.SD[[params$yearValue]]))]
+    dataCopy[, `:=`(c("timePointYears"), as.numeric(.SD[["timePointYears"]]))]
 
     dataWithout0M =
         remove0M(dataCopy, valueVars = "Value", flagVars = "flagObservationStatus")

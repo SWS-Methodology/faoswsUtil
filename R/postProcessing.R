@@ -4,8 +4,6 @@
 ##' NOTE (Michael): The data is assumed to be normalised.
 ##'
 ##' @param data The data.table object
-##' @param params The processing parameters returned by the function
-##'     \code{defaultProcessingParameters}.
 ##'
 ##' @return A data.table with standard post processing steps
 ##'     performed.
@@ -13,14 +11,14 @@
 ##' @export
 ##'
 
-postProcessing = function(data, params = defaultProcessingParameters()){
-    if(!all(c(param$yearValue), "Value", "flagObservationStatus") %in%
+postProcessing = function(data){
+    if(!all("timePointYears", "Value", "flagObservationStatus") %in%
        colnames(data))
         stop("Required column not in data, this function assumes the data is ",
              "normalised")
     dataCopy = copy(data)
     ## Converting year back to database
-    dataCopy[, `:=`(c(params$yearValue), as.character(.SD[[params$yearValue]]))]
+    dataCopy[, `:=`("timePointYears", as.character(.SD[["timePointYears"]]))]
     ## Restoring the 0M values
     dataWith0M =
         restore0M(dataCopy, valueVars = "Value",
