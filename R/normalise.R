@@ -31,7 +31,8 @@ normalise = function(denormalisedData,
                      yearVar = "timePointYears",
                      flagObsVar = "flagObservationStatus",
                      flagMethodVar = "flagMethod",
-                     valueVar = "Value"){
+                     valueVar = "Value",
+                     removeNonExistingRecords = TRUE){
 
     measuredTriplet = c(valueVar, flagObsVar, flagMethodVar)
     allKey = c(areaVar, itemVar, elementVar, yearVar)
@@ -59,5 +60,8 @@ normalise = function(denormalisedData,
 
     normalisedData =
         Reduce(merge, x = normalisedList)
-
+    if(removeNonExistingRecords){
+        normalisedData = removeNonExistingRecord(normalisedData)
+    }
+    normalisedData
 }

@@ -4,19 +4,28 @@
 \alias{fillRecord}
 \title{This function replaces non-existing records with missing records.}
 \usage{
-fillRecord(data, valuePattern = "Value",
-  flagObsPattern = "flagObservationStatus",
-  flagMethodPattern = "flagMethod")
+fillRecord(data, areaVar = "geographicAreaM49", itemVar = "measuredItemCPC",
+  elementVar = "measuredElement", yearVar = "timePointYears",
+  valueVar = "Value", flagObsVar = "flagObservationStatus",
+  flagMethodVar = "flagMethod")
 }
 \arguments{
 \item{data}{The dataset}
 
-\item{valuePattern}{The regular expression to capture the value column.}
+\item{areaVar}{The column name corresponding to the geographic area.}
 
-\item{flagObsPattern}{The regular expression to capture the observation
+\item{itemVar}{The column name corresponding to the commodity item.}
+
+\item{elementVar}{The column name corresponds to the measured element.}
+
+\item{yearVar}{The column name corresponds to the time dimension.}
+
+\item{valueVar}{The regular expression to capture the value column.}
+
+\item{flagObsVar}{The regular expression to capture the observation
 status flag column.}
 
-\item{flagMethodPattern}{The regular expression to capture the method flag
+\item{flagMethodVar}{The regular expression to capture the method flag
 column.}
 }
 \value{

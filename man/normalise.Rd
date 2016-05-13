@@ -8,7 +8,8 @@ structure given by the SWS specification.}
 normalise(denormalisedData, areaVar = "geographicAreaM49",
   itemVar = "measuredItemCPC", elementVar = "measuredElement",
   yearVar = "timePointYears", flagObsVar = "flagObservationStatus",
-  flagMethodVar = "flagMethod", valueVar = "Value")
+  flagMethodVar = "flagMethod", valueVar = "Value",
+  removeNonExistingRecords = TRUE)
 }
 \arguments{
 \item{denormalisedData}{The data.table object which is
