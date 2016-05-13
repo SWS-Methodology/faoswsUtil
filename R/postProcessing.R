@@ -12,8 +12,8 @@
 ##'
 
 postProcessing = function(data){
-    if(!all("timePointYears", "Value", "flagObservationStatus") %in%
-       colnames(data))
+    if(!all(c("timePointYears", "Value", "flagObservationStatus") %in%
+       colnames(data)))
         stop("Required column not in data, this function assumes the data is ",
              "normalised")
     dataCopy = copy(data)
