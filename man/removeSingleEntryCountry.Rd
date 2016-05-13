@@ -4,14 +4,10 @@
 \alias{removeSingleEntryCountry}
 \title{This function removes countries that has only one observation}
 \usage{
-removeSingleEntryCountry(data, params = defaultProcessingParameters())
+removeSingleEntryCountry(data)
 }
 \arguments{
 \item{data}{The data.table object containing the data.}
-
-\item{processingParameters}{A list of the parameters for the production
-processing algorithms.  See defaultProcessingParameters() for a starting
-point.}
 }
 \value{
 A data.table where countries with only a single
