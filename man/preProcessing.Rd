@@ -5,13 +5,10 @@
 \title{This function performs manipulation of the data that are standard
 after the data is retrieved from the data base.}
 \usage{
-preProcessing(data, params = defaultProcessingParameters())
+preProcessing(data)
 }
 \arguments{
 \item{data}{The data.table object}
-
-\item{params}{The processing parameters returned by the function
-\code{defaultProcessingParameters}.}
 }
 \value{
 A data.table with standard pre processing steps
