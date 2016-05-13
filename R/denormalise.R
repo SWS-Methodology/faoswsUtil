@@ -10,6 +10,8 @@
 ##'     flag.
 ##' @param flagMethodVar The column name corresponds to the method flag.
 ##' @param valueVar The column name corresponds to the value columne.
+##' @param fillEmptyRecords logical, whether empty record created due to
+##'     denormalisation should be replaced with missing value.
 ##'
 ##' @return The denormalised data
 ##'
@@ -26,7 +28,8 @@ denormalise = function(normalisedData,
                        yearVar = "timePointYears",
                        flagObsVar = "flagObservationStatus",
                        flagMethodVar = "flagMethod",
-                       valueVar = "Value"){
+                       valueVar = "Value",
+                       fillEmptyRecords = FALSE){
 
     allKey = c(areaVar, itemVar, elementVar, yearVar)
     measuredTriplet = c(valueVar, flagObsVar, flagMethodVar)
@@ -40,8 +43,11 @@ denormalise = function(normalisedData,
 
     denormalised = dcast(normalisedData, formula = denormaliseFormula,
                          value.var = measuredTriplet,
-                 sep = seperator)
-    denormalised = fillRecord(denormalised)
+                         sep = seperator)
+
+    if(fillEmptyRecords){
+        denormalised = fillRecord(denormalised)
+    }
 
     uniqueElementCodes =
         unique(gsub("[^0-9]", "",
@@ -54,10 +60,10 @@ denormalise = function(normalisedData,
                              "timePointYears",
                              sapply(uniqueElementCodes,
                                     FUN = function(x){
-                                      grep(paste0(x, "$"),
-                                           colnames(denormalised),
-                                             value = TRUE)
-                                    }
-                                    )))
+                                 grep(paste0(x, "$"),
+                                      colnames(denormalised),
+                                      value = TRUE)
+                             }
+                             )))
     denormalised
 }

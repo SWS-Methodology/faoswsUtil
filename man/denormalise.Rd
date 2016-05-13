@@ -7,7 +7,8 @@
 denormalise(normalisedData, denormaliseKey, areaVar = "geographicAreaM49",
   itemVar = "measuredItemCPC", elementVar = "measuredElement",
   yearVar = "timePointYears", flagObsVar = "flagObservationStatus",
-  flagMethodVar = "flagMethod", valueVar = "Value")
+  flagMethodVar = "flagMethod", valueVar = "Value",
+  fillEmptyRecords = FALSE)
 }
 \arguments{
 \item{normalisedData}{normalised data to be denormalise}
@@ -26,6 +27,9 @@ flag.}
 \item{flagMethodVar}{The column name corresponds to the method flag.}
 
 \item{valueVar}{The column name corresponds to the value columne.}
+
+\item{fillEmptyRecords}{logical, whether empty record created due to
+denormalisation should be replaced with missing value.}
 
 \item{denormalisedKey}{The key/variable that will be denormalised.}
 }
