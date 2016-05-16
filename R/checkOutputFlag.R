@@ -10,7 +10,9 @@
 ##'     method flag.
 ##' @param flagMethodExpected The value of the method flag expected in
 ##'     the output.
-##'
+##' @param returnData logical, whether the data should be returned
+##' @param normalised logical, whether the data is normalised
+##' @param denormalisedKey optional, only required if the input data is not
 ##' @return The original data is returned if all the flag matches
 ##'     those expected, otherwise an error is raised.
 ##'
@@ -21,11 +23,30 @@ checkOutputFlags = function(data,
                             flagObservationStatusColumn = "flagObservationStatus",
                             flagObservationStatusExpected,
                             flagMethodColumn = "flagMethod",
-                            flagMethodExpected){
+                            flagMethodExpected,
+                            returnData = TRUE,
+                            normalised = TRUE,
+                            denormalisedKey = "measuredElement"){
+    dataCopy = copy(data)
+
+    if(!normalised){
+        dataCopy = normalise(dataCopy)
+    }
+
+    if(!all(c(flagObservationVar, flagMethodVar) %in% colnames(dataCopy)))
+        stop("Flag columns are not in the data")
+
     if(!all(data[[flagObservationStatusColumn]] %in%
             flagObservationStatusExpected))
         stop("Incorrect Observation Flag")
     if(!all(data[[flagMethodColumn]] %in% flagMethodExpected))
         stop("Incorrect Method Flag")
-    data
+
+    if(!normalised){
+        dataCopy = denormalise(dataCopy, denormalisedKey)
+    }
+
+    if(returnData)
+        return(dataCopy)
+
 }
