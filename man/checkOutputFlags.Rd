@@ -7,7 +7,8 @@ to expectation.}
 \usage{
 checkOutputFlags(data, flagObservationStatusColumn = "flagObservationStatus",
   flagObservationStatusExpected, flagMethodColumn = "flagMethod",
-  flagMethodExpected)
+  flagMethodExpected, returnData = TRUE, normalised = TRUE,
+  denormalisedKey = "measuredElement")
 }
 \arguments{
 \item{data}{The data.table object to be checked}
@@ -23,6 +24,12 @@ method flag.}
 
 \item{flagMethodExpected}{The value of the method flag expected in
 the output.}
+
+\item{returnData}{logical, whether the data should be returned}
+
+\item{normalised}{logical, whether the data is normalised}
+
+\item{denormalisedKey}{optional, only required if the input data is not}
 }
 \value{
 The original data is returned if all the flag matches

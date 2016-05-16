@@ -5,10 +5,15 @@
 \title{This function performs manipulation of the data that are standard
 before the data is saved back to the data base.}
 \usage{
-postProcessing(data)
+postProcessing(data, normalised = TRUE, denormalisedKey = "measuredElement")
 }
 \arguments{
 \item{data}{The data.table object}
+
+\item{normalised}{logical, whether the data is normalised}
+
+\item{denormalisedKey}{optional, only required if the input data is not
+normalised.It is the name of the key that denormalises the data.}
 }
 \value{
 A data.table with standard post processing steps

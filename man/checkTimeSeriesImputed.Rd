@@ -4,7 +4,8 @@
 \alias{checkTimeSeriesImputed}
 \title{This function checks whether all time series within a dataset are imputed.}
 \usage{
-checkTimeSeriesImputed(dataToBeSaved, key, valueColumn)
+checkTimeSeriesImputed(dataToBeSaved, key, valueColumn, returnData = TRUE,
+  normalised = TRUE, denormalisedKey = "measuredElement")
 }
 \arguments{
 \item{dataToBeSaved}{The data to be saved back to the database}
@@ -14,6 +15,13 @@ Generally the set c('geographicAreaM49', 'measuredItemCPC',
 'measuredElement').}
 
 \item{valueColumn}{The column which contains the numeric values.}
+
+\item{returnData}{logical, whether the data should be returned}
+
+\item{normalised}{logical, whether the data is normalised}
+
+\item{denormalisedKey}{optional, only required if the input data is not
+normalised.It is the name of the key that denormalises the data.}
 }
 \value{
 The same data if all time series are imputed, otherwise an error.
