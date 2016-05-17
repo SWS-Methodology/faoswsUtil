@@ -2,11 +2,11 @@
 ##' to expectation.
 ##'
 ##' @param data The data.table object to be checked
-##' @param flagObservationStatusColumn The column name corresponding
+##' @param flagObservationStatusVar The column name corresponding
 ##'     to the observation status flag.
 ##' @param flagObservationStatusExpected The value of the observation
 ##'     status flag expected in the output.
-##' @param flagMethodColumn The column name corresponding to the
+##' @param flagMethodVar The column name corresponding to the
 ##'     method flag.
 ##' @param flagMethodExpected The value of the method flag expected in
 ##'     the output.
@@ -20,9 +20,9 @@
 ##'
 
 checkOutputFlags = function(data,
-                            flagObservationStatusColumn = "flagObservationStatus",
-                            flagObservationStatusExpected,
-                            flagMethodColumn = "flagMethod",
+                            flagObservationVar = "flagObservationStatus",
+                            flagObservationExpected,
+                            flagMethodVar = "flagMethod",
                             flagMethodExpected,
                             returnData = TRUE,
                             normalised = TRUE,
@@ -36,10 +36,10 @@ checkOutputFlags = function(data,
     if(!all(c(flagObservationVar, flagMethodVar) %in% colnames(dataCopy)))
         stop("Flag columns are not in the data")
 
-    if(!all(data[[flagObservationStatusColumn]] %in%
-            flagObservationStatusExpected))
+    if(!all(data[[flagObservationVar]] %in%
+            flagObservationExpected))
         stop("Incorrect Observation Flag")
-    if(!all(data[[flagMethodColumn]] %in% flagMethodExpected))
+    if(!all(data[[flagMethodVar]] %in% flagMethodExpected))
         stop("Incorrect Method Flag")
 
     if(!normalised){
