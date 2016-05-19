@@ -1,8 +1,8 @@
 Package: faoswsUtil
 Type: Package
 Title: A suite of function to support the FAO new Statistical Working System
-Version: 0.2.6
-Date: 2016-05-13
+Version: 0.2.7
+Date: 2016-05-19
 Author: Michael C. J. Kao <michael.kao@fao.org>, Aleksander Matrunich
     <aleksander.matrunich@fao.org>, Joshua M. Browning <joshua.browning@fao.org>
 Maintainer: Michael C. J. Kao <michael.kao@fao.org>
@@ -13,10 +13,8 @@ Imports:
     faosws (>= 0.5.0),
     plyr
 Suggests:
-    RJDBC,
     stringr,
-    reshape2,
-    DBI
+    reshape2
 License: GPL (>= 3)
 LazyData: yes
 ZipData: no

@@ -13,6 +13,8 @@ denormalise(normalisedData, denormaliseKey, areaVar = "geographicAreaM49",
 \arguments{
 \item{normalisedData}{normalised data to be denormalise}
 
+\item{denormaliseKey}{The key/variable that will be denormalised.}
+
 \item{areaVar}{The column name corresponding to the geographic area.}
 
 \item{itemVar}{The column name corresponding to the commodity item.}
@@ -30,8 +32,6 @@ flag.}
 
 \item{fillEmptyRecords}{logical, whether empty record created due to
 denormalisation should be replaced with missing value.}
-
-\item{denormalisedKey}{The key/variable that will be denormalised.}
 }
 \value{
 The denormalised data

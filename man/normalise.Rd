@@ -12,33 +12,31 @@ normalise(denormalisedData, areaVar = "geographicAreaM49",
   removeNonExistingRecords = TRUE)
 }
 \arguments{
-\item{denormalisedData}{The data.table object which is
-denormalised in the form returned by the \code{GetData}
-function when the normalised arguement is set to FALSE.}
+\item{denormalisedData}{The data.table object which is denormalised in the
+form returned by the \code{GetData} function when the normalised
+arguement is set to FALSE.}
 
-\item{areaVar}{The column name corresponding to the geographic
-area.}
+\item{areaVar}{The column name corresponding to the geographic area.}
 
-\item{itemVar}{The column name corresponding to the commodity
-item.}
+\item{itemVar}{The column name corresponding to the commodity item.}
 
-\item{elementVar}{The column name corresponding to the measured
-element.}
+\item{elementVar}{The column name corresponding to the measured element.}
 
 \item{yearVar}{The column name corresponding to the year.}
 
-\item{flagObsVar}{The column name corresponding to the observation
-status flag.}
-
-\item{flagMethodVar}{The column name corresponding to the method
+\item{flagObsVar}{The column name corresponding to the observation status
 flag.}
 
+\item{flagMethodVar}{The column name corresponding to the method flag.}
+
 \item{valueVar}{The column name corresponding to the value.}
+
+\item{removeNonExistingRecords}{logical, whether records where flag
+observation and method are NA should be removed.}
 }
 \value{
-A normalised data.table object in the same form returned
-    by the \code{GetData} function when the normalised arguement
-    is set to TRUE.
+A normalised data.table object in the same form returned by the
+    \code{GetData} function when the normalised arguement is set to TRUE.
 }
 \description{
 This function normalise the denormalised data assuming the

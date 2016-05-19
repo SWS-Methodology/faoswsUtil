@@ -1,7 +1,7 @@
 ##' This function denormalise data in the SWS format
 ##'
 ##' @param normalisedData normalised data to be denormalise
-##' @param denormalisedKey The key/variable that will be denormalised.
+##' @param denormaliseKey The key/variable that will be denormalised.
 ##' @param areaVar The column name corresponding to the geographic area.
 ##' @param itemVar The column name corresponding to the commodity item.
 ##' @param elementVar The column name corresponds to the measured element.
