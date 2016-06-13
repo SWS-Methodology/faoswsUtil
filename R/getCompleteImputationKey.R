@@ -19,12 +19,14 @@ getCompleteImputationKey = function(table = "production"){
     ## Read the table
     tableName = paste0("fbs_", table, "_comm_codes")
     completeImputationCodes = ReadDatatable(tableName)
+    if(nrow(completeImputationCodes) == 0)
+        stop("The reference data contains no entry")
 
     ## Extract the information
     domain = unique(completeImputationCodes$fbs_domain)
     dataset = unique(completeImputationCodes$fbs_dataset)
-    datasetConfig = GetDatasetConfig(domainCode = sessionKey@domain,
-                                     datasetCode = sessionKey@dataset)
+    datasetConfig = GetDatasetConfig(domainCode = domain,
+                                     datasetCode = dataset)
 
     n.dimensions = length(datasetConfig$dimensions)
     dimensions = vector("list", n.dimensions)
