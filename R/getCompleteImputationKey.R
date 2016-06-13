@@ -1,46 +1,44 @@
 ##' This function reads the complete imputation key from the Datatable
-##' 'fbs_[domain]_comm_codes'
+##' 'fbs_[table]_comm_codes'
 ##'
-##' @param domain The domain to read from.
+##' @param table The Datatable to read from.
 ##' @return A DatasetKey object containing all the keys for production
 ##'     imputation
 ##'
 ##' @export
 
-getCompleteImputationKey = function(domain = "production"){
+getCompleteImputationKey = function(table = "production"){
     supportedDomain = c("production", "trade", "seed", "loss", "industrial",
                         "food", "feed", "stocks", "tourist", "sua")
-    if(!domain %in% supportedDomain)
-        stop("'domain' specified is no supported, please select another domain",
+    if(!table %in% supportedDomain)
+        stop("'domain' specified is not supported, please select another domain",
              " or contact the Engineering team to set up a new table",
              " supported domains are: \n\t",
              paste0(supportedDomain, collapse = "\n\t"))
 
-    tableName = paste0("fbs_", domain, "_comm_codes")
+    ## Read the table
+    tableName = paste0("fbs_", table, "_comm_codes")
     completeImputationCodes = ReadDatatable(tableName)
-    allCountryCodes =
-        completeImputationCodes[fbs_key == "geographicAreaM49", fbs_code]
-    allItemCodes =
-        completeImputationCodes[fbs_key == "measuredItemCPC", fbs_code]
-    allElementCodes =
-        completeImputationCodes[fbs_key == "measuredElement", fbs_code]
-    allYearCodes =
-        completeImputationCodes[fbs_key == "timePointYears", fbs_code]
+
+    ## Extract the information
+    domain = unique(completeImputationCodes$fbs_domain)
+    dataset = unique(completeImputationCodes$fbs_dataset)
+    datasetConfig = GetDatasetConfig(domainCode = sessionKey@domain,
+                                     datasetCode = sessionKey@dataset)
+
+    n.dimensions = length(datasetConfig$dimensions)
+    dimensions = vector("list", n.dimensions)
+    names(dimensions) = datasetConfig$dimensions
+    for(i in seq(n.dimensions)){
+        dimension_name = datasetConfig$dimensions[[i]]
+        dimensions[[i]] =
+            Dimension(name = dimension_name,
+                       keys = completeImputationCodes[fbs_key == dimension_name, fbs_code])
+    }
+    ## Build the key
     completeImputationKey =
-        DatasetKey(domain = "agriculture",
-                   dataset = "aproduction",
-                   dimensions =
-                       list(geographicAreaM49 =
-                                Dimension(name = "geographicAreaM49",
-                                          keys = allCountryCodes),
-                            measuredItemCPC =
-                                Dimension(name = "measuredItemCPC",
-                                          keys = allItemCodes),
-                            measuredElement =
-                                Dimension(name = "measuredElement",
-                                          keys = allElementCodes),
-                            timePointYears =
-                                Dimension(name = "timePointYears",
-                                          keys = allYearCodes)))
+        DatasetKey(domain = domain,
+                   dataset = dataset,
+                   dimensions = dimensions)
     completeImputationKey
 }

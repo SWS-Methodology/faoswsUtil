@@ -3,12 +3,12 @@
 \name{getCompleteImputationKey}
 \alias{getCompleteImputationKey}
 \title{This function reads the complete imputation key from the Datatable
-'fbs_[domain]_comm_codes'}
+'fbs_[table]_comm_codes'}
 \usage{
-getCompleteImputationKey(domain = "production")
+getCompleteImputationKey(table = "production")
 }
 \arguments{
-\item{domain}{The domain to read from.}
+\item{table}{The Datatable to read from.}
 }
 \value{
 A DatasetKey object containing all the keys for production
@@ -16,6 +16,6 @@ A DatasetKey object containing all the keys for production
 }
 \description{
 This function reads the complete imputation key from the Datatable
-'fbs_[domain]_comm_codes'
+'fbs_[table]_comm_codes'
 }
 
