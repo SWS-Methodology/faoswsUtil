@@ -1,9 +1,11 @@
 ##' This function obtains the share data.
 ##'
-##' @param geographicAreaM49 A character vector of area codes.  The trees
-##'   returned are specific to country and year; thus, providing this parameter
-##'   limits which trees are pulled.  If NULL, all are used.
-##' @param timePointYearsSP A character vector of years.  See geographicAreaM49.
+##' @param geographicAreaM49 A character vector of area codes. The trees
+##'     returned are specific to country and year; thus, providing this
+##'     parameter limits which trees are pulled. If NULL, all are used.
+##' @param timePointYearsSP A character vector of years. See geographicAreaM49.
+##' @param scaleShare whether the share should be scaled from [0, 100] to [0,
+##'     1].
 ##'
 ##' @return A table of the share
 ##' @export
@@ -12,7 +14,8 @@
 getShareData = function(geographicAreaM49,
                         measuredItemChildCPC,
                         measuredItemParentCPC,
-                        timePointYearsSP){
+                        timePointYearsSP,
+                        scaleShare = TRUE){
     ## Need to double check this.
     elementKey = "1"
 
@@ -76,6 +79,8 @@ getShareData = function(geographicAreaM49,
     completeShareData[is.na(completeShareData$Value),
                       `:=`(c("Value", "flagShare"),
                            list(100, "create by function"))]
+    if(scaleShare)
+        completeShareData[, `:=`("Value", Value/100)]
 
     ## Remove the column
     completeShareData[, `:=`(c("year_wild_value", "year_wild_flagShare"), NULL)]

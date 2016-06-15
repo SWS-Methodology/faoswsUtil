@@ -5,14 +5,17 @@
 \title{This function obtains the share data.}
 \usage{
 getShareData(geographicAreaM49, measuredItemChildCPC, measuredItemParentCPC,
-  timePointYearsSP)
+  timePointYearsSP, scaleShare = TRUE)
 }
 \arguments{
-\item{geographicAreaM49}{A character vector of area codes.  The trees
-returned are specific to country and year; thus, providing this parameter
-limits which trees are pulled.  If NULL, all are used.}
+\item{geographicAreaM49}{A character vector of area codes. The trees
+returned are specific to country and year; thus, providing this
+parameter limits which trees are pulled. If NULL, all are used.}
 
-\item{timePointYearsSP}{A character vector of years.  See geographicAreaM49.}
+\item{timePointYearsSP}{A character vector of years. See geographicAreaM49.}
+
+\item{scaleShare}{whether the share should be scaled from [0, 100] to [0,
+1].}
 }
 \value{
 A table of the share
