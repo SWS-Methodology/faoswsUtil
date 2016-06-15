@@ -5,10 +5,13 @@
 \title{This function reads the complete imputation key from the Datatable
 'fbs_[table]_comm_codes'}
 \usage{
-getCompleteImputationKey(table = "production")
+getCompleteImputationKey(table = "production", tableOnly = FALSE)
 }
 \arguments{
 \item{table}{The Datatable to read from.}
+
+\item{tableOnly}{logical, if true only the table is returned. The default is
+to return the DatasetKey.}
 }
 \value{
 A DatasetKey object containing all the keys for production

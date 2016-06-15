@@ -2,12 +2,14 @@
 ##' 'fbs_[table]_comm_codes'
 ##'
 ##' @param table The Datatable to read from.
+##' @param tableOnly logical, if true only the table is returned. The default is
+##'     to return the DatasetKey.
 ##' @return A DatasetKey object containing all the keys for production
 ##'     imputation
 ##'
 ##' @export
 
-getCompleteImputationKey = function(table = "production"){
+getCompleteImputationKey = function(table = "production", tableOnly = FALSE){
     supportedDomain = c("production", "trade", "seed", "loss", "industrial",
                         "food", "feed", "stocks", "tourist", "sua")
     if(!table %in% supportedDomain)
@@ -19,6 +21,8 @@ getCompleteImputationKey = function(table = "production"){
     ## Read the table
     tableName = paste0("fbs_", table, "_comm_codes")
     completeImputationCodes = ReadDatatable(tableName)
+    if(tableOnly)
+        return(completeImputationCodes)
     if(nrow(completeImputationCodes) == 0)
         stop("The reference data contains no entry")
 
