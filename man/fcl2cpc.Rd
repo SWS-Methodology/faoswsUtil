@@ -4,10 +4,15 @@
 \alias{fcl2cpc}
 \title{FCL to CPC Codes}
 \usage{
-fcl2cpc(fclCodes)
+fcl2cpc(fclCodes, version = "2.1preliminary")
 }
 \arguments{
 \item{fclCodes}{A character vector containing the FCL codes.}
+
+\item{version}{character. This specifies the version of the conversion 
+tables between fcl and cpc. The only ones available, so far, are '2.1preliminary',
+the default one, and '2.1' which is the update and official one. Ideally in 
+the future the default value should be '2.1'.}
 }
 \value{
 A character vector whose ith element is the CPC code corresponding 
