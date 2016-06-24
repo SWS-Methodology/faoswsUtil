@@ -3,6 +3,10 @@
 ##' This function maps FCL to CPC codes using the table defined within the SWS.
 ##' 
 ##' @param fclCodes A character vector containing the FCL codes.
+##' @param version character. This specify the version of the conversion 
+##'   tables between fcl and cpc. The only available, so far, are 2.1preliminary,
+##'   the defaul one, and 2.1 which is the update and official one. Ideally in 
+##'   the future the default value should be 2.1
 ##'   
 ##' @return A character vector whose ith element is the CPC code corresponding 
 ##'   to the passed FCL code in position i.  If no valid mapping is found, an NA
@@ -17,7 +21,7 @@
 ##' @export
 ##' 
 
-fcl2cpc = function(fclCodes){
+fcl2cpc = function(fclCodes, version = "2.1preliminary"){
     ## Data Quality Checks
     stopifnot(is(fclCodes, "character"))
     if(!exists("swsContext.datasets"))
@@ -30,7 +34,15 @@ fcl2cpc = function(fclCodes){
              "pad your current codes with zeroes.")
     
     ## Load the mapping table
-    map = faosws::ReadDatatable(table = "fcl_2_cpc")
+    if (version == "2.1preliminary"){
+        map = faosws::ReadDatatable(table = "fcl_2_cpc")
+    } else {
+        if (version == "2.1"){
+            map = faosws::ReadDatatable(table = "fcl_2_cpc_ver_2_1")
+        } else {
+            stop("Version of the conversion fcl_2_cpc table not available")
+        }
+    }
     
     ## Merge the fclCodes with the mapping table
     out = merge(data.table(fcl = unique(fclCodes)), map, by = "fcl",

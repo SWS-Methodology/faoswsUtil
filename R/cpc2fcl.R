@@ -12,6 +12,10 @@
 ##'   practice.  However, the mapping at the time of this writing is entirely
 ##'   one-to-one except for maize, which is mapped to maize, white maize, and
 ##'   popcorn.  It's probably not very bad to ignore this issue.
+##'  @param version character. This specify the version of the conversion 
+##'   tables between fcl and cpc. The only available, so far, are 2.1preliminary,
+##'   the defaul one, and 2.1 which is the update and official one. Ideally in 
+##'   the future the default value should be 2.1
 ##'   
 ##' @return A character vector whose ith element is the FCL code corresponding
 ##'   to the passed CPC code in position i.  If no valid mapping is found, an NA
@@ -26,7 +30,7 @@
 ##' @export
 ##' 
 
-cpc2fcl = function(cpcCodes, returnFirst = FALSE){
+cpc2fcl = function(cpcCodes, returnFirst = FALSE, version = "2.1preliminary"){
     ## Data Quality Checks
     stopifnot(is(cpcCodes, "character"))
     if(!exists("swsContext.datasets")){
@@ -36,7 +40,15 @@ cpc2fcl = function(cpcCodes, returnFirst = FALSE){
     }
     
     ## Load the mapping table
-    map = faosws::ReadDatatable(table = "fcl_2_cpc")
+    if (version == "2.1preliminary"){
+        map = faosws::ReadDatatable(table = "fcl_2_cpc")
+    } else {
+        if (version == "2.1"){
+            map = faosws::ReadDatatable(table = "fcl_2_cpc_ver_2_1")
+        } else {
+            stop("Version of the conversion fcl_2_cpc table not available")
+        }
+    }
     
     ## Merge the fclCodes with the mapping table Note: allow.cartesian = TRUE
     ## because cpc 0112 maps to FCL 56, 67, and 68.  This is handled later, but
