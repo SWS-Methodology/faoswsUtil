@@ -12,10 +12,10 @@
 ##'   practice.  However, the mapping at the time of this writing is entirely
 ##'   one-to-one except for maize, which is mapped to maize, white maize, and
 ##'   popcorn.  It's probably not very bad to ignore this issue.
-##'  @param version character. This specifies the version of the conversion 
-##'   tables between fcl and cpc. The only ones available, so far, are '2.1preliminary',
-##'   the default one, and '2.1' which is the update and official one. Ideally in 
-##'   the future the default value should be '2.1'.
+##' @param version character. This specifies the version of the conversion 
+##'   tables between fcl and cpc. To use the latest version, you can use
+##'   'latest'. The other tables available are '2.1preliminary', the default one
+##'   and '2.1' which is the update and official one.
 ##'   
 ##' @return A character vector whose ith element is the FCL code corresponding
 ##'   to the passed CPC code in position i.  If no valid mapping is found, an NA
@@ -39,14 +39,20 @@ cpc2fcl = function(cpcCodes, returnFirst = FALSE, version = "2.1preliminary"){
              "work.")
     }
     
-    ## Load the mapping table
-    if (version == "2.1preliminary") {
-        map = faosws::ReadDatatable(table = "fcl_2_cpc")
-    } else if (version == "2.1") {
-        map = faosws::ReadDatatable(table = "fcl2cpc_ver_2_1")
-    } else {
-        stop("Version of the conversion fcl_2_cpc table not available")
+    validversions = c("latest", "2.1preliminary", "2.1")
+    latestversion = "2.1"
+    stopifnot(version %in% validversions)
+    if(version == "latest"){
+        version = latestversion
     }
+    
+    
+    ## Load the mapping table
+    
+    map = faosws::ReadDatatable(table = switch(version,
+                                               "2.1preliminary" = "fcl_2_cpc",
+                                               "2.1" = "fcl2cpc_ver_2_1"
+    )) 
     
     ## Merge the fclCodes with the mapping table Note: allow.cartesian = TRUE
     ## because cpc 0112 maps to FCL 56, 67, and 68.  This is handled later, but

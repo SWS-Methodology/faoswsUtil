@@ -10,9 +10,14 @@ fcl2cpc(fclCodes, version = "2.1preliminary")
 \item{fclCodes}{A character vector containing the FCL codes.}
 
 \item{version}{character. This specifies the version of the conversion 
-tables between fcl and cpc. The only ones available, so far, are '2.1preliminary',
-the default one, and '2.1' which is the update and official one. Ideally in 
-the future the default value should be '2.1'.}
+tables between fcl and cpc. The only ones available, so far, are 
+'2.1preliminary', the default one, and '2.1' which is the update and 
+official one. Ideally in the future the default value should be '2.1'.}
+
+\item{version}{character. This specifies the version of the conversion 
+tables between fcl and cpc. To use the latest version, you can use
+'latest'. The other tables available are '2.1preliminary', the default one
+and '2.1' which is the update and official one.}
 }
 \value{
 A character vector whose ith element is the CPC code corresponding 

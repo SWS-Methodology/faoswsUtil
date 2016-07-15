@@ -10,18 +10,19 @@ cpc2fcl(cpcCodes, returnFirst = FALSE, version = "2.1preliminary")
 \item{cpcCodes}{A character vector containing the CPC codes.}
 
 \item{returnFirst}{Logical.  If one CPC code maps to multiple FCL codes, we 
- have no way of correctly mapping a single code without more information. 
- The code is designed to throw an error at this point, but if you want to 
- force a result (and return the lowest numerical code of all the matches) 
- then set this to TRUE.  In that case, only a warning will be issued if
- this type of mapping occurs.  In general, setting this to TRUE is bad
- practice.  However, the mapping at the time of this writing is entirely
- one-to-one except for maize, which is mapped to maize, white maize, and
- popcorn.  It's probably not very bad to ignore this issue.
-@param version character. This specifies the version of the conversion 
- tables between fcl and cpc. The only ones available, so far, are '2.1preliminary',
- the default one, and '2.1' which is the update and official one. Ideally in 
- the future the default value should be '2.1'.}
+have no way of correctly mapping a single code without more information. 
+The code is designed to throw an error at this point, but if you want to 
+force a result (and return the lowest numerical code of all the matches) 
+then set this to TRUE.  In that case, only a warning will be issued if
+this type of mapping occurs.  In general, setting this to TRUE is bad
+practice.  However, the mapping at the time of this writing is entirely
+one-to-one except for maize, which is mapped to maize, white maize, and
+popcorn.  It's probably not very bad to ignore this issue.}
+
+\item{version}{character. This specifies the version of the conversion 
+tables between fcl and cpc. To use the latest version, you can use
+'latest'. The other tables available are '2.1preliminary', the default one
+and '2.1' which is the update and official one.}
 }
 \value{
 A character vector whose ith element is the FCL code corresponding
