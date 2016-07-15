@@ -79,7 +79,7 @@ cpc2fcl = function(cpcCodes, returnFirst = FALSE, version = "2.1preliminary"){
                  "code, however, the only issue was that maize is mapped to ",
                  "maize, white maize, and popcorn.  Mapping maize to maize ",
                  "and ignoring white maize/popcorn probably isn't too bad.")
-            map[, fcl := min(fcl), by = cpc]
+            map = map[, .SD[which.min(fcl)], by = cpc]
             map = unique(map)
             ## Merge the fclCodes with the mapping table
             out = merge(data.table(cpc = unique(cpcCodes)), map, by = "cpc",
