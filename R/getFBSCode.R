@@ -30,13 +30,16 @@ getFBSCode = function(commCodeFCL){
     #     
     result = merge(map, data.table(item = commCodeFCL, index = 1:length(commCodeFCL)), 
                    by="item", all.y=T)
+    
     setkeyv(result, "item")
     result <- result[order(result$index)]
     iterCount = 0
     ## Processed products won't have FBS codes.  So, assign the parent (primary 
     ## products have themselves as parents) to the item, and continue to merge
     ## back with the map until you have all FBS codes.
-    while(any(is.na(result$target_code))){
+    
+    ## For all missing target codes where the item itself isn't missing
+    while(any(is.na(result$target_code) & !is.na(result$item))){
         result[, item := parent]
         result = result[, list(item, index)] # "list" to stay data.table
         setkey(result, item)
