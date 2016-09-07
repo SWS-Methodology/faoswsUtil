@@ -27,7 +27,7 @@
 nameData <- function(domain, dataset, dt, except, append = "_description", returnCodes = TRUE){
     
     stopifnot(is.character(domain), is.character(dataset))
-    stopifnot(is.character(append), nchar(append) < 1)
+    stopifnot(is.character(append), nchar(append) >= 1)
     
     conf <- GetDatasetConfig(domain, dataset)
     ##Which keys are actually dimensions
@@ -45,6 +45,7 @@ nameData <- function(domain, dataset, dt, except, append = "_description", retur
     codes2merge <- lapply(keys, GetCodeDescription, domain = domain, 
                           dataset = dataset, data = dt, append = append)
     newdata <- copy(dt)
+    
     for(i in seq_along(codes2merge)){
         newdata_names <- names(newdata)
         shared_name <- intersect(newdata_names, names(codes2merge[[i]]))
@@ -64,7 +65,8 @@ nameData <- function(domain, dataset, dt, except, append = "_description", retur
         } 
         
     }
-    newdata
+    # Brackets to force printing
+    newdata[]
 }
 
 GetCodeDescription <- function(domain, dataset, key, data, append = "_description"){
