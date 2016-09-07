@@ -70,7 +70,10 @@ nameData <- function(domain, dataset, dt, except, append = "_description", retur
 }
 
 GetCodeDescription <- function(domain, dataset, key, data, append = "_description"){
-    codeTable <- GetCodeList(domain, dataset, key, data[, get(key)])[,.(code, description)]
+    
+    codeTable <- GetCodeList(domain, dataset, key, unique(data[, get(key)]))[,.(code, description)]
     setnames(codeTable, c("code", "description"), c(key, paste0(key, append)))
-    codeTable
+    
+    codeTable[]
+    
 }
