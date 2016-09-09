@@ -6,6 +6,7 @@
 ##'     DatasetKey
 ##' @param datasetkey Datasetkey. DatasetKey from which you wish to set
 ##'   dimensions
+##' @param newKey character. Keys you wish to set
 ##'
 ##' @export
 ##'

@@ -51,7 +51,7 @@ normalise = function(denormalisedData,
                                           gsub(substitutePattern, "",
                                                .SD[[denormalisedKey]]))]
                    setkeyv(splitNormalised,
-                           col = c(normalisedKey, denormalisedKey))
+                           cols = c(normalisedKey, denormalisedKey))
                })
 
     normalisedData =

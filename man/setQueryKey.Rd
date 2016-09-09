@@ -12,6 +12,8 @@ DatasetKey}
 
 \item{datasetkey}{Datasetkey. DatasetKey from which you wish to set
 dimensions}
+
+\item{newKey}{character. Keys you wish to set}
 }
 \description{
 Set a data key for the query

@@ -21,19 +21,21 @@ named. For example, "timePointYears"}
 if \code{append = FALSE}}
 
 \item{returnCodes}{logical. If TRUE, descriptions are returned as columns 
-  after the codes. If FALSE, the codes are omitted from the output.
-  
- @examples
- \dontrun{
- dat = structure(list(geographicAreaM49 = c("276", "36", "380", "4",
-"716"), Value = c(0, 0.0555555555555556, 0, 0, 0.2)), row.names = c(NA,
- -5L), class = c("data.table", "data.frame"), .Names = c("geographicAreaM49",                                                                                                                         
- "Value"), sorted = "geographicAreaM49")
- 
- nameData("agriculture", "aproduction", dat, except = "timePointYears")
- }}
+after the codes. If FALSE, the codes are omitted from the output.}
 }
 \description{
 Adds human-readable names to keys automatically.
+}
+\examples{
+ 
+ \dontrun{
+ dat = structure(list(geographicAreaM49 = c("276", "36", "380", "4",
+"716"), Value = c(0, 0.0555555555555556, 0, 0, 0.2)), row.names = c(NA,
+ -5L), class = c("data.table", "data.frame"), .Names = c("geographicAreaM49",
+ "Value"), sorted = "geographicAreaM49")
+ 
+ nameData("agriculture", "aproduction", dat, except = "timePointYears")
+ }
+ 
 }
 

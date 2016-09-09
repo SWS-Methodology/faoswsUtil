@@ -33,7 +33,8 @@
 ##' data <- GetData(swsContext.datasets[[1]])
 ##' keys <- colnames(data)
 ##' keys <- keys[!(keys %in% c("Value", "flagObservationStatus", "flagMethod"))]
-##' key_tree <- GetCodeTree (domain = "agriculture", dataset = "agriculture", dimension = "measuredItemCPC")
+##' key_tree <- GetCodeTree (domain = "agriculture", dataset = "agriculture", 
+##'                          dimension = "measuredItemCPC")
 ##' flags <- data.table(flagObservationStatus = c("I"), flagMethod = c("s"))
 ##'
 ##' ag_data <- aggregateDimension(data, keys, "measuredItemCPC", key_tree, agg_flags = flags)
