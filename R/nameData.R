@@ -1,10 +1,13 @@
 ##' Name SWS dataset
-##'
+##' 
 ##' Adds human-readable names to keys automatically.
 ##' 
 ##' @param domain character. Domain of dataset
 ##' @param dataset character. Name of dataset
-##' @param dt data.table. The data.table to which you wish to add names
+##' @param dt data.table or data.frame. The table to which you wish to add 
+##'   names. Its column names must correspond to the dimensions of the dataset 
+##'   specified. Use \code{\link{GetDatasetConfig}} to find the dimension names
+##'   of a dataset
 ##' @param except character. Vector of names in the table that you do not wish 
 ##'   named. For example, "timePointYears"
 ##' @param append character. Suffix to add to column name of names. Not applied 
@@ -27,6 +30,13 @@
 
 nameData <- function(domain, dataset, dt, except, append = "_description", returnCodes = TRUE){
     
+    if(!is.data.table(dt)){
+        if(is.data.frame(dt)){
+            dt <- as.data.table(dt)
+        } else {
+            stop("Data supplied must be a data.frame or a data.table")
+        }
+    }
     stopifnot(is.character(domain), is.character(dataset))
     stopifnot(is.character(append), nchar(append) >= 1)
     

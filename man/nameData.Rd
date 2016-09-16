@@ -12,7 +12,10 @@ nameData(domain, dataset, dt, except, append = "_description",
 
 \item{dataset}{character. Name of dataset}
 
-\item{dt}{data.table. The data.table to which you wish to add names}
+\item{dt}{data.table or data.frame. The table to which you wish to add 
+names. Its column names must correspond to the dimensions of the dataset 
+specified. Use \code{\link{GetDatasetConfig}} to find the dimension names
+of a dataset}
 
 \item{except}{character. Vector of names in the table that you do not wish 
 named. For example, "timePointYears"}
