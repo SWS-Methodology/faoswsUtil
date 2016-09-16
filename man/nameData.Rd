@@ -14,17 +14,17 @@ nameData(domain, dataset, dt, except, append = "_description",
 
 \item{dt}{data.table or data.frame. The table to which you wish to add 
 names. Its column names must correspond to the dimensions of the dataset 
-specified. Use \code{\link{GetDatasetConfig}} to find the dimension names
+specified. Use \code{\link{GetDatasetConfig}} to find the dimension names 
 of a dataset}
 
 \item{except}{character. Vector of names in the table that you do not wish 
 named. For example, "timePointYears"}
 
-\item{append}{character. Suffix to add to column name of names. Not applied 
-if \code{append = FALSE}}
+\item{append}{character. Suffix to add to column name of names. If "" and
+\code{returnCodes} is FALSE, then adds no suffix to the final names}
 
 \item{returnCodes}{logical. If TRUE, descriptions are returned as columns 
-after the codes. If FALSE, the codes are omitted from the output.}
+after the codes. If FALSE, the codes are omitted from the output}
 }
 \description{
 Adds human-readable names to keys automatically.

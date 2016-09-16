@@ -6,14 +6,14 @@
 ##' @param dataset character. Name of dataset
 ##' @param dt data.table or data.frame. The table to which you wish to add 
 ##'   names. Its column names must correspond to the dimensions of the dataset 
-##'   specified. Use \code{\link{GetDatasetConfig}} to find the dimension names
+##'   specified. Use \code{\link{GetDatasetConfig}} to find the dimension names 
 ##'   of a dataset
 ##' @param except character. Vector of names in the table that you do not wish 
 ##'   named. For example, "timePointYears"
-##' @param append character. Suffix to add to column name of names. Not applied 
-##'   if \code{append = FALSE}
+##' @param append character. Suffix to add to column name of names. If "" and
+##'   \code{returnCodes} is FALSE, then adds no suffix to the final names
 ##' @param returnCodes logical. If TRUE, descriptions are returned as columns 
-##'   after the codes. If FALSE, the codes are omitted from the output.
+##'   after the codes. If FALSE, the codes are omitted from the output
 ##'   
 ##' @examples
 ##'  
@@ -38,7 +38,19 @@ nameData <- function(domain, dataset, dt, except, append = "_description", retur
         }
     }
     stopifnot(is.character(domain), is.character(dataset))
-    stopifnot(is.character(append), nchar(append) >= 1)
+    stopifnot(is.character(append), !is.na(append))
+    
+    blankAppend <- FALSE
+    if(append == ""){
+        # Append can't be "" as it's used to distinguish codes from descriptions
+        # during the merge, so we're temporarily setting it to _ her and setting
+        # a flag that it was blank
+        if(returnCodes){
+            stop("If codes are returned as well as descriptions, 'append' cannot be blank")
+        }
+        append <- "_"
+        blankAppend <- TRUE
+    }
     
     conf <- GetDatasetConfig(domain, dataset)
     ##Which keys are actually dimensions
@@ -71,8 +83,12 @@ nameData <- function(domain, dataset, dt, except, append = "_description", retur
         )
         
         if(!returnCodes){
+            
             newdata[, (shared_name) := NULL]
-            setnames(newdata, paste0(shared_name, append), shared_name)
+            # if append == "", then that means to return names without append
+            if(blankAppend){
+                setnames(newdata, paste0(shared_name, append), shared_name)
+            }
         } 
         
     }
