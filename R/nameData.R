@@ -30,6 +30,8 @@
 
 nameData <- function(domain, dataset, dt, except, append = "_description", returnCodes = TRUE){
     
+    dt <- copy(dt)
+    
     if(!is.data.table(dt)){
         if(is.data.frame(dt)){
             dt <- as.data.table(dt)
@@ -37,6 +39,7 @@ nameData <- function(domain, dataset, dt, except, append = "_description", retur
             stop("Data supplied must be a data.frame or a data.table")
         }
     }
+    
     stopifnot(is.character(domain), is.character(dataset))
     stopifnot(is.character(append), !is.na(append))
     
@@ -59,7 +62,10 @@ nameData <- function(domain, dataset, dt, except, append = "_description", retur
     ##Except this key
     if(missing(except)) except <- character()
     keys <- setdiff(keys, except)
-    
+
+    # Convert all keys to character
+    dt[,(keys) := lapply(dt[,mget(keys)], as.character)]
+        
     # If there are no shared keys, just return the data
     if(length(keys) < 1){
         return(dt)
@@ -98,7 +104,9 @@ nameData <- function(domain, dataset, dt, except, append = "_description", retur
 
 GetCodeDescription <- function(domain, dataset, key, data, append = "_description"){
     
-    codeTable <- GetCodeList(domain, dataset, key, unique(data[, get(key)]))[,.(code, description)]
+    codeTable <- GetCodeList(domain, dataset, key)[,.(code, description)]
+    setkeyv(codeTable, "code")
+    codeTable <- codeTable[unique(data[, get(key)]),]
     setnames(codeTable, c("code", "description"), c(key, paste0(key, append)))
     
     codeTable[]
