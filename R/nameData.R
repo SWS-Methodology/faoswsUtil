@@ -46,8 +46,8 @@ nameData <- function(domain, dataset, dt, except, append = "_description", retur
     blankAppend <- FALSE
     if(append == ""){
         # Append can't be "" as it's used to distinguish codes from descriptions
-        # during the merge, so we're temporarily setting it to _ her and setting
-        # a flag that it was blank
+        # during the merge, so we're temporarily setting it to _ here and
+        # setting a flag that it was blank
         if(returnCodes){
             stop("If codes are returned as well as descriptions, 'append' cannot be blank")
         }
@@ -63,14 +63,14 @@ nameData <- function(domain, dataset, dt, except, append = "_description", retur
     if(missing(except)) except <- character()
     keys <- setdiff(keys, except)
 
-    # Convert all keys to character
-    dt[,(keys) := lapply(dt[,mget(keys)], as.character)]
-        
     # If there are no shared keys, just return the data
     if(length(keys) < 1){
         return(dt)
     }
     
+    # Convert all keys to character
+    dt[,(keys) := lapply(dt[,mget(keys)], as.character)]
+        
     codes2merge <- lapply(keys, GetCodeDescription, domain = domain, 
                           dataset = dataset, data = dt, append = append)
     newdata <- copy(dt)
