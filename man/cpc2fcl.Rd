@@ -4,7 +4,7 @@
 \alias{cpc2fcl}
 \title{CPC to FCL Codes}
 \usage{
-cpc2fcl(cpcCodes, returnFirst = FALSE, version = "2.1preliminary")
+cpc2fcl(cpcCodes, returnFirst = FALSE, version = "latest")
 }
 \arguments{
 \item{cpcCodes}{A character vector containing the CPC codes.}
