@@ -16,8 +16,8 @@ makeKeyDt <- function(dskey){
     
     with(keylist, data.table(domain = domain,
                              dataset = dataset,
-                             key = dimensions[["name"]],
-                             code = dimensions[["keys"]])
+                             name = dimensions[["name"]],
+                             keys = dimensions[["keys"]])
     )
     
 }
