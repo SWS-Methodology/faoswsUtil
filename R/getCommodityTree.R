@@ -63,7 +63,7 @@ getCommodityTree = function(geographicAreaM49 = NULL, timePointYears = NULL, par
             geographicAreaM49 = Dimension(name = "geographicAreaM49", keys = allAreaCodes),
             measuredElement = Dimension(name = "measuredShare", keys = shareCode),
             measuredItemChildCPC = Dimension(name = "measuredItemChildCPC", keys = allItemCodes),
-            measuredItemParentCPC = Dimension(name = "measuredItemParentCPC", keys = ifelse(!is.null(parents), parents, allItemCodes)),
+            measuredItemParentCPC = Dimension(name = "measuredItemParentCPC", keys = if(!is.null(parents)) parents else allItemCodes),
             timePointYearsSP = Dimension(name = "timePointYearsSP", keys = allYears)
         ))
     shareData = GetData(shareKey)
