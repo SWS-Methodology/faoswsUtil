@@ -2,8 +2,8 @@
 % Please edit documentation in R/normalise.R
 \name{normalise}
 \alias{normalise}
-\title{This function normalise the denormalised data assuming the
-structure given by the SWS specification.}
+\title{This function normalises the denormalised data assuming the structure given 
+by the SWS specification.}
 \usage{
 normalise(denormalisedData, areaVar = "geographicAreaM49",
   itemVar = "measuredItemCPC", elementVar = "measuredElement",
@@ -12,9 +12,9 @@ normalise(denormalisedData, areaVar = "geographicAreaM49",
   removeNonExistingRecords = TRUE)
 }
 \arguments{
-\item{denormalisedData}{The data.table object which is denormalised in the
-form returned by the \code{GetData} function when the normalised
-arguement is set to FALSE.}
+\item{denormalisedData}{The data.table or data.frame object which is 
+denormalised in the form returned by the \code{GetData} function when the 
+normalised argument is set to FALSE.}
 
 \item{areaVar}{The column name corresponding to the geographic area.}
 
@@ -24,22 +24,23 @@ arguement is set to FALSE.}
 
 \item{yearVar}{The column name corresponding to the year.}
 
-\item{flagObsVar}{The column name corresponding to the observation status
+\item{flagObsVar}{The column name corresponding to the observation status 
 flag.}
 
 \item{flagMethodVar}{The column name corresponding to the method flag.}
 
 \item{valueVar}{The column name corresponding to the value.}
 
-\item{removeNonExistingRecords}{logical, whether records where flag
+\item{removeNonExistingRecords}{logical, whether records where flag 
 observation and method are NA should be removed.}
 }
 \value{
-A normalised data.table object in the same form returned by the
-    \code{GetData} function when the normalised arguement is set to TRUE.
+A normalised data.table or data.frame object (depending on the type of
+  object passed in as denormalisedData) in the same form returned by
+  the \code{GetData} function when the normalised argument is set to TRUE.
 }
 \description{
-This function normalise the denormalised data assuming the
-structure given by the SWS specification.
+This function normalises the denormalised data assuming the structure given 
+by the SWS specification.
 }
 
