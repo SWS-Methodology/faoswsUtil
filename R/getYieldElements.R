@@ -16,7 +16,7 @@
 
 getYieldCodes = function(itemCode){
     
-    itemData = GetCodeList(domain = "agriculture", dataset = "agriculture",
+    itemData = GetCodeList(domain = "agriculture", dataset = "aproduction",
                            dimension = "measuredItemCPC", codes = itemCode)
     if(any(!itemCode %in% itemData[, code])){
         missingCodes = itemCode[!itemCode %in% itemData[, code]] 
