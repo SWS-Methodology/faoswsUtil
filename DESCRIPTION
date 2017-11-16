@@ -1,22 +1,15 @@
 Package: faoswsUtil
 Type: Package
 Title: A suite of function to support the FAO new Statistical Working System
-Version: 0.3.0
-Date: 2017-06-02
-Authors@R: c(person("Michael C. J.", "Kao", role = "aut", email = "michael.kao@fao.org"),
-             person("Sebastian Campbell", role = "cre", email = "sebastian.campbell@fao.org"),
-             person("Aleksander", "Matrunich", role = "aut", email = "aleksander.matrunich@fao.org"),
-             person("Joshua M.", "Browning", role = "aut", email = "joshua.browning@fao.org"))
+Version: 0.4.0
+Date: 2017-11-16
+Authors@R: c(person("Michael C. J.", "Kao", role = "aut", email = "michael.kao@fao.org"), person("Sebastian Campbell", role =
+              "cre", email = "sebastian.campbell@fao.org"), person("Aleksander", "Matrunich", role = "aut", email =
+              "aleksander.matrunich@fao.org"), person("Joshua M.", "Browning", role = "aut", email =
+              "joshua.browning@fao.org"))
 Description: This package provides extra functionality to the faosws package.
-Imports:
-    data.table (>= 1.9.2),
-    faoswsFlag,
-    faosws (>= 0.5.0),
-    plyr
-Suggests:
-    stringr,
-    reshape2,
-    testthat
+Imports: data.table (>= 1.9.2), faoswsFlag, faosws (>= 0.5.0), plyr
+Suggests: stringr, reshape2, testthat
 License: GPL (>= 3)
 LazyData: yes
 ZipData: no
