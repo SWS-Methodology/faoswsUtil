@@ -12,11 +12,11 @@ test_that("parseRange works on single cases", {
     expect_identical(parseRange("1-3"), c("1", "2", "3"))
 })
 
-test_that("parseRange works on mixed ranges"){
+test_that("parseRange works on mixed ranges", {
     expect_identical(parseRange("1-3, 3"), c("1", "2", "3", "3"))
     expect_identical(parseRange("1-3,5"), c("1", "2", "3", "5"))
     expect_identical(parseRange("1-3,5, 0"), c("1", "2", "3", "5", "0"))
-}
+})
 
 test_that("parseRange works with different separators", {
     expect_identical(parseRange("1; 2", sep = "; *"), c("1", "2"))
