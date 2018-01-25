@@ -19,4 +19,3 @@ reasons, this can take some time. The domain and dataset name can be
 retrieved from the \code{swsContext.datasets} or you can use the
 \code{\link{GetDomainNames}} family of functions.
 }
-

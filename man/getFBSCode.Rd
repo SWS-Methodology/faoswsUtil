@@ -17,4 +17,3 @@ A vector of FBS codes corresponding to the passed FCL codes.
 This function takes a FCL commodity code and returns the FBS aggregate code 
 that contains this data.
 }
-

@@ -23,4 +23,3 @@ flag ("M") in the case where that observation is missing.  This function is
 similar to remove0M, which assigns NA's to values where the observation
 flag is "M" (sort of the opposite of this function).
 }
-

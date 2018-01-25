@@ -13,4 +13,4 @@ Suggests: stringr, reshape2, testthat
 License: GPL (>= 3)
 LazyData: yes
 ZipData: no
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

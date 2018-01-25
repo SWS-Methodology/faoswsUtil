@@ -24,4 +24,3 @@ a level number, where level zero is where the parent of the branch has not
 parents of its own (i.e. is a root)
 }
 \keyword{internal}
-

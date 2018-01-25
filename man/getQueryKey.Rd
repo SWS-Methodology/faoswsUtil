@@ -16,4 +16,3 @@ dimensions}
 \description{
 Get a data key from the query
 }
-

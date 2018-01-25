@@ -32,4 +32,3 @@ adj <- data.table(parent = c("a", "b", "c"), children = children)
 adjacent2edge(adj)
 
 }
-

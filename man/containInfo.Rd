@@ -23,4 +23,3 @@ passed vectors contain any information.
 If the data contains only missing values or zeroes then it is
 marked as containing no information.
 }
-

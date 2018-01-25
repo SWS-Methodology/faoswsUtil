@@ -23,4 +23,3 @@ A table of the share
 \description{
 This function obtains the share data.
 }
-

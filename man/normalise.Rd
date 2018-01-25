@@ -43,4 +43,3 @@ A normalised data.table or data.frame object (depending on the type of
 This function normalises the denormalised data assuming the structure given 
 by the SWS specification.
 }
-

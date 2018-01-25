@@ -23,4 +23,3 @@ This function takes a data.table in a tree like structure and returns, for
 each top node, a data.table with all the descendants (children of children 
 of ...).
 }
-

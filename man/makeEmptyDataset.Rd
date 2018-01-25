@@ -14,4 +14,3 @@ makeEmptyDataset(domain, dataset)
 \description{
 Make empty data.table based on SWS table.
 }
-

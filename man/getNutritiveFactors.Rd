@@ -44,4 +44,3 @@ that some nutrient factors are specific to country/year, and some apply to
 all years or all countries or both.  Thus, we must combine these factors in 
 a reasonable way and generate a useable table.
 }
-

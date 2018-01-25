@@ -18,4 +18,3 @@ don't want to exclude any, set this to NULL}
 Function to compare two sets of packages
 }
 \keyword{internal}
-

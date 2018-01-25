@@ -20,4 +20,3 @@ Yield = Production / (Area Harvested) * factor
 This function takes a vector of CPC codes and returns a data.table with the 
 corresponding production/yield/area harvested codes for those commodities.
 }
-
