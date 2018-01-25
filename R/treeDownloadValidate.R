@@ -43,7 +43,22 @@ treeDownloadValidate=function(areakeys,yearvals){
     
     
     tree = faosws::GetData(treekey,omitna = FALSE)
+    if("flag_obs_status_v2"%in%colnames(tree)){
     setnames(tree,"flag_obs_status_v2","flagObservationStatus")
+    }
+    
+    
+    if(nrow(tree[measuredElementSuaFbs=="5423"&is.na(Value)])>0){
+        tree[measuredElementSuaFbs=="5423"&is.na(Value),flagObservationStatus:="T"]
+        tree[measuredElementSuaFbs=="5423"&is.na(Value),flagMethod:="-"]
+        tree[measuredElementSuaFbs=="5423"&is.na(Value),Value:=0]
+    }
+    if(nrow(tree[measuredElementSuaFbs=="5431"&is.na(Value)])>0){
+        tree[measuredElementSuaFbs=="5431"&is.na(Value),flagObservationStatus:="E"]
+        tree[measuredElementSuaFbs=="5431"&is.na(Value),flagMethod:="-"]
+        tree[measuredElementSuaFbs=="5431"&is.na(Value),Value:=0]
+    }    
+    
     
     tree[measuredElementSuaFbs=="5423",measuredElementSuaFbs:="extractionRate"]
     tree[measuredElementSuaFbs=="5431",measuredElementSuaFbs:="share"]
@@ -173,6 +188,22 @@ treeDownloadValidate=function(areakeys,yearvals){
         paste0("Invalid Flags in the commodity Tree.Email sent to ", swsContext.userEmail)
         
     }else{  
+        if(!CheckDebug()){
+            body = paste("The Commodity Tree has been validated for",
+                         "Flags and general validity of figures",
+                         " ",
+                         "No check has been performed regarding the values of shares by child",
+                         "=================================================",
+                         "If shares have to be used",
+                         "Consistency of shares by child has to be checked"
+                         ,sep='\n')
+            sendmailR::sendmail(from = "sws@fao.org",
+                                to = swsContext.userEmail,
+                                subject = sprintf("tree successfully downloaded and Checked"),
+                                msg = strsplit(body,"\n")[[1]])
+                                           
+        }
+        message("tree successfully downloaded and Checked")
         return(tree)
         
     }
