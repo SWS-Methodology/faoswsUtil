@@ -50,7 +50,7 @@ library(data.table)
 data <- GetData(swsContext.datasets[[1]])
 keys <- colnames(data)
 keys <- keys[!(keys \%in\% c("Value", "flagObservationStatus", "flagMethod"))]
-key_tree <- GetCodeTree (domain = "agriculture", dataset = "agriculture", 
+key_tree <- GetCodeTree (domain = "agriculture", dataset = "aproduction", 
                          dimension = "measuredItemCPC")
 flags <- data.table(flagObservationStatus = c("I"), flagMethod = c("s"))
 

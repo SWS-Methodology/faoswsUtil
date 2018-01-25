@@ -6,6 +6,7 @@
 ##'   returned are specific to country and year; thus, providing this parameter 
 ##'   limits which trees are pulled.  If NULL, all are used.
 ##' @param timePointYears A character vector of years.  See geographicAreaM49.
+##' @param parents character, optional. Return only children of these parents.
 ##'   
 ##' @return A data.table object containing the commodity tree.  The dimension 
 ##'   columns correspond to the country, year, parent, and child commodity.  Two
@@ -16,7 +17,7 @@
 ##' @export
 ##' 
 
-getCommodityTree = function(geographicAreaM49 = NULL, timePointYears = NULL){
+getCommodityTree = function(geographicAreaM49 = NULL, timePointYears = NULL, parents = NULL){
     ## Data Quality Checks
     if(!exists("swsContext.datasets")){
         stop("No swsContext.datasets object defined.  Thus, you probably ",
@@ -62,7 +63,7 @@ getCommodityTree = function(geographicAreaM49 = NULL, timePointYears = NULL){
             geographicAreaM49 = Dimension(name = "geographicAreaM49", keys = allAreaCodes),
             measuredElement = Dimension(name = "measuredShare", keys = shareCode),
             measuredItemChildCPC = Dimension(name = "measuredItemChildCPC", keys = allItemCodes),
-            measuredItemParentCPC = Dimension(name = "measuredItemParentCPC", keys = allItemCodes),
+            measuredItemParentCPC = Dimension(name = "measuredItemParentCPC", keys = if(!is.null(parents)) parents else allItemCodes),
             timePointYearsSP = Dimension(name = "timePointYearsSP", keys = allYears)
         ))
     shareData = GetData(shareKey)
@@ -158,5 +159,5 @@ getCommodityTree = function(geographicAreaM49 = NULL, timePointYears = NULL){
     #Convert extraction rate and share from percentage to ratio
     finalTree[, extractionRate := extractionRate / 100]
     finalTree[, share := share / 100]
-    finalTree
+    return(finalTree[])
 }

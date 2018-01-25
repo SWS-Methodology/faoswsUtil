@@ -30,7 +30,7 @@
 ##' @export
 ##' 
 
-cpc2fcl = function(cpcCodes, returnFirst = FALSE, version = "2.1preliminary"){
+cpc2fcl = function(cpcCodes, returnFirst = FALSE, version = "latest"){
     ## Data Quality Checks
     stopifnot(is(cpcCodes, "character"))
     if(!exists("swsContext.datasets")){

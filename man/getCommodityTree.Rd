@@ -4,7 +4,8 @@
 \alias{getCommodityTree}
 \title{Get Commodity Tree}
 \usage{
-getCommodityTree(geographicAreaM49 = NULL, timePointYears = NULL)
+getCommodityTree(geographicAreaM49 = NULL, timePointYears = NULL,
+  parents = NULL)
 }
 \arguments{
 \item{geographicAreaM49}{A character vector of area codes.  The trees 
@@ -12,6 +13,8 @@ returned are specific to country and year; thus, providing this parameter
 limits which trees are pulled.  If NULL, all are used.}
 
 \item{timePointYears}{A character vector of years.  See geographicAreaM49.}
+
+\item{parents}{character, optional. Return only children of these parents.}
 }
 \value{
 A data.table object containing the commodity tree.  The dimension 

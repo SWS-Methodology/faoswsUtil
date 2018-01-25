@@ -21,7 +21,7 @@
 ##' @export
 ##' 
 
-fcl2cpc = function(fclCodes, version = "2.1preliminary"){
+fcl2cpc = function(fclCodes, version = "latest"){
     ## Data Quality Checks
     
     validversions = c("latest", "2.1preliminary", "2.1")
