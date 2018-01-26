@@ -12,6 +12,10 @@ getShareData(geographicAreaM49, measuredItemChildCPC, measuredItemParentCPC,
 returned are specific to country and year; thus, providing this
 parameter limits which trees are pulled. If NULL, all are used.}
 
+\item{measuredItemChildCPC}{Child Commodity.}
+
+\item{measuredItemParentCPC}{Parent commodity.}
+
 \item{timePointYearsSP}{A character vector of years. See geographicAreaM49.}
 
 \item{scaleShare}{whether the share should be scaled from [0, 100] to [0,

@@ -1,20 +1,18 @@
-##' Download Commodity Tree and perform validation 
+##' Download Commodity Tree and validate
 ##' 
-##' This function downoad commodity tree form "suafbs" Domain and perform Flag Validation and Value Validation  
+##' This function downoad commodity tree form "suafbs" Domain and perform Flag Validation and Value 
+##' Validation
 ##' 
 ##' @param areakeys A character vector containing the M49 country codes 
-##' 
 ##' @param yearvals A character vector containing years to be downloaded
 ##'   
-##' @return The Valid Commodity Tree
+##' @return a commodity Tree
 ##'   
-##' 
 ##' @export
 ##' 
 
-
-
-treeDownloadValidate=function(areakeys,yearvals){
+treeDownloadValidate = function(areakeys= NULL,
+                                yearvals= NULL){
     ## Data Quality Checks
     stopifnot(is(areakeys, "character"))
     stopifnot(is(yearvals, "character"))
@@ -44,7 +42,7 @@ treeDownloadValidate=function(areakeys,yearvals){
     
     tree = faosws::GetData(treekey,omitna = FALSE)
     if("flag_obs_status_v2"%in%colnames(tree)){
-    setnames(tree,"flag_obs_status_v2","flagObservationStatus")
+        setnames(tree,"flag_obs_status_v2","flagObservationStatus")
     }
     
     
@@ -64,8 +62,8 @@ treeDownloadValidate=function(areakeys,yearvals){
     tree[measuredElementSuaFbs=="5431",measuredElementSuaFbs:="share"]
     
     
-    ##' create column for check
-    ##' (this column will be deleted)
+    ##create column for check
+    ##(this column will be deleted)
     tree[,checkFlags:=paste0("(",flagObservationStatus,",",flagMethod,")")]
     
     
@@ -73,21 +71,21 @@ treeDownloadValidate=function(areakeys,yearvals){
     #################### CHECK FLAG VALIDITY  ####################
     ##############################################################
     
-    ##'check if the Flags are valid.
-    ##'The possible flags are (decided with Data Team): 
-    ##'
-    ##'Extraction Rates:
-    ##'(T,-) = validated up do 2013 - protected
-    ##'(E,t) = copied from 2014 onwards - not protected but that do not change during standardization process
-    ##'(E,f) = manually changed by the user - protected
-    ##'
-    ##'Shares: 
-    ##'(E,-) = coming from old methodology - NOT protected. These values willbe overwritten
-    ##'at any run of the module, except the values of oils, which are kept, unless manually changed
-    ##'(E,f) = manually changed by the user - protected
-    ##'(I,i) = calculated by the module - not protected
-    ##'
-    ##'
+    ## check if the Flags are valid.
+    ## The possible flags are (decided with Data Team): 
+    ##
+    ## Extraction Rates:
+    ## (T,-) = validated up do 2013 - protected
+    ## (E,t) = copied from 2014 onwards - not protected but that do not change during standardization process
+    ## (E,f) = manually changed by the user - protected
+    ##
+    ## Shares: 
+    ## (E,-) = coming from old methodology - NOT protected. These values willbe overwritten
+    ## at any run of the module, except the values of oils, which are kept, unless manually changed
+    ## (E,f) = manually changed by the user - protected
+    ## (I,i) = calculated by the module - not protected
+    ##
+    ##
     
     validERflags=c("(T,-)","(E,t)","(E,f)")
     validSHflags=c("(E,-)","(E,f)","(I,i)")
@@ -171,8 +169,8 @@ treeDownloadValidate=function(areakeys,yearvals){
                                 to = swsContext.userEmail,
                                 subject = sprintf("Standardization stopped for invalid flags"),
                                 msg = list(strsplit(body,"\n")[[1]], 
-                                           mime_part(destfile, 
-                                                     name = paste0(basename, FILETYPE)
+                                           sendmailR::mime_part(destfile, 
+                                                                name = paste0(basename, FILETYPE)
                                            )
                                 )
             )
@@ -201,10 +199,10 @@ treeDownloadValidate=function(areakeys,yearvals){
                                 to = swsContext.userEmail,
                                 subject = sprintf("tree successfully downloaded and Checked"),
                                 msg = strsplit(body,"\n")[[1]])
-                                           
+            
         }
         message("tree successfully downloaded and Checked")
-        return(tree)
+        tree
         
     }
 }

@@ -2,9 +2,9 @@
 % Please edit documentation in R/treeDownloadValidate.R
 \name{treeDownloadValidate}
 \alias{treeDownloadValidate}
-\title{Download Commodity Tree and perform validation}
+\title{Download Commodity Tree and validate}
 \usage{
-treeDownloadValidate(areakeys, yearvals)
+treeDownloadValidate(areakeys = NULL, yearvals = NULL)
 }
 \arguments{
 \item{areakeys}{A character vector containing the M49 country codes}
@@ -12,8 +12,9 @@ treeDownloadValidate(areakeys, yearvals)
 \item{yearvals}{A character vector containing years to be downloaded}
 }
 \value{
-The Valid Commodity Tree
+a commodity Tree
 }
 \description{
-This function downoad commodity tree form "suafbs" Domain and perform Flag Validation and Value Validation
+This function downoad commodity tree form "suafbs" Domain and perform Flag Validation and Value 
+Validation
 }

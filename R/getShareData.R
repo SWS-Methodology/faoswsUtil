@@ -6,7 +6,8 @@
 ##' @param timePointYearsSP A character vector of years. See geographicAreaM49.
 ##' @param scaleShare whether the share should be scaled from [0, 100] to [0,
 ##'     1].
-##'
+##' @param measuredItemParentCPC Parent commodity.
+##' @param measuredItemChildCPC Child Commodity.
 ##' @return A table of the share
 ##' @export
 ##'
