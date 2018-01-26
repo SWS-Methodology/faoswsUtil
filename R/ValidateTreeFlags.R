@@ -1,66 +1,48 @@
-##' Download Commodity Tree and validate
+##' Validate Flags of Commodity Tree
 ##' 
-##' This function downoad commodity tree form "suafbs" Domain and perform Flag Validation and Value 
-##' Validation
+##' This function perform Flag Validation for the commodity Tree
+##' Validation. 
+##' The possible flags are (decided with Data Team): 
+##'
+##' Extraction Rates:
+##' (T,-) = validated up do 2013 - protected
+##' (E,t) = copied from 2014 onwards - not protected but that do not change during standardization process
+##' (E,f) = manually changed by the user - protected
+##'
+##' Shares: 
+##' (E,-) = coming from old methodology - NOT protected. These values willbe overwritten
+##' at any run of the module, except the values of oils, which are kept, unless manually changed
+##' (E,f) = manually changed by the user - protected
+##' (I,i) = calculated by the module - not protected
 ##' 
-##' @param areakeys A character vector containing the M49 country codes 
-##' @param yearvals A character vector containing years to be downloaded
+##' @param tree the commodity tree to check
 ##'   
-##' @return a commodity Tree
+##' @return a message with the information of validity of flags
 ##'   
 ##' @export
 ##' 
 
-treeDownloadValidate = function(areakeys= NULL,
-                                yearvals= NULL){
+ValidateTreeFlags = function(tree= NULL){
     ## Data Quality Checks
-    stopifnot(is(areakeys, "character"))
-    stopifnot(is(yearvals, "character"))
     if(!exists("swsContext.datasets")){
         stop("No swsContext.datasets object defined.  Thus, you probably ",
              "won't be able to read from the SWS and so this function won't ",
              "work.")
     }
-    treeelemKeys = c("5423", "5431")
+    # Checks for data
+    stopifnot(c("geographicAreaM49", "measuredElementSuaFbs", "measuredItemParentCPC", 
+                "measuredItemChildCPC", "timePointYears", "Value", "flagObservationStatus", 
+                "flagMethod") %in% colnames(tree))
+    
+    if("5423"%in%tree[,measuredElementSuaFbs]){
+        stop("Elements have to be expressed in names: extractionRate, share")
+    }
     # 5423 = Extraction Rate [hg/t]
     # 5431 = Share of utilization [%]
     
-    treeitemPKeys = faosws::GetCodeList(domain = "suafbs", dataset = "ess_fbs_commodity_tree", "measuredItemParentCPC")
-    treeitemPKeys = treeitemPKeys[, code]
-    
-    treeitemCKeys = faosws::GetCodeList(domain = "suafbs", dataset = "ess_fbs_commodity_tree", "measuredItemChildCPC")
-    treeitemCKeys = treeitemCKeys[, code]
-    
-    treekey = faosws::DatasetKey(domain = "suafbs", dataset = "ess_fbs_commodity_tree", dimensions = list(
-        geographicAreaM49 = Dimension(name = "geographicAreaM49", keys = areaKeys),
-        measuredElementSuaFbs = Dimension(name = "measuredElementSuaFbs", keys = treeelemKeys),
-        measuredItemParentCPC = Dimension(name = "measuredItemParentCPC", keys = treeitemPKeys),
-        measuredItemChildCPC = Dimension(name = "measuredItemChildCPC", keys = treeitemCKeys),
-        timePointYears = Dimension(name = "timePointYears", keys = yearVals)
-    ))
-    
-    
-    tree = faosws::GetData(treekey,omitna = FALSE)
-    if("flag_obs_status_v2"%in%colnames(tree)){
-        setnames(tree,"flag_obs_status_v2","flagObservationStatus")
-    }
-    
-    
-    if(nrow(tree[measuredElementSuaFbs=="5423"&is.na(Value)])>0){
-        tree[measuredElementSuaFbs=="5423"&is.na(Value),flagObservationStatus:="T"]
-        tree[measuredElementSuaFbs=="5423"&is.na(Value),flagMethod:="-"]
-        tree[measuredElementSuaFbs=="5423"&is.na(Value),Value:=0]
-    }
-    if(nrow(tree[measuredElementSuaFbs=="5431"&is.na(Value)])>0){
-        tree[measuredElementSuaFbs=="5431"&is.na(Value),flagObservationStatus:="E"]
-        tree[measuredElementSuaFbs=="5431"&is.na(Value),flagMethod:="-"]
-        tree[measuredElementSuaFbs=="5431"&is.na(Value),Value:=0]
-    }    
-    
-    
-    tree[measuredElementSuaFbs=="5423",measuredElementSuaFbs:="extractionRate"]
-    tree[measuredElementSuaFbs=="5431",measuredElementSuaFbs:="share"]
-    
+    tree=tree[,mget(c("geographicAreaM49", "measuredElementSuaFbs", "measuredItemParentCPC", 
+                      "measuredItemChildCPC", "timePointYears", "Value", "flagObservationStatus", 
+                      "flagMethod"))]
     
     ##create column for check
     ##(this column will be deleted)
@@ -70,22 +52,6 @@ treeDownloadValidate = function(areakeys= NULL,
     ##############################################################
     #################### CHECK FLAG VALIDITY  ####################
     ##############################################################
-    
-    ## check if the Flags are valid.
-    ## The possible flags are (decided with Data Team): 
-    ##
-    ## Extraction Rates:
-    ## (T,-) = validated up do 2013 - protected
-    ## (E,t) = copied from 2014 onwards - not protected but that do not change during standardization process
-    ## (E,f) = manually changed by the user - protected
-    ##
-    ## Shares: 
-    ## (E,-) = coming from old methodology - NOT protected. These values willbe overwritten
-    ## at any run of the module, except the values of oils, which are kept, unless manually changed
-    ## (E,f) = manually changed by the user - protected
-    ## (I,i) = calculated by the module - not protected
-    ##
-    ##
     
     validERflags=c("(T,-)","(E,t)","(E,f)")
     validSHflags=c("(E,-)","(E,f)","(I,i)")
@@ -174,6 +140,7 @@ treeDownloadValidate = function(areakeys= NULL,
                                            )
                                 )
             )
+            message2=paste0("Email sent to ", swsContext.userEmail)
         }else{
             if(file.exists(paste0("debugFile/Batch_",batchnumber,"/B",batchnumber,"__0_invalidFlags.csv"))){
                 file.remove(paste0("debugFile/Batch_",batchnumber,"/B",batchnumber,"__0_invalidFlags.csv"))
@@ -181,27 +148,26 @@ treeDownloadValidate = function(areakeys= NULL,
                 write.csv(invalidFlags, paste0(PARAMS$debugFolder,"/Batch_",batchnumber,"/B",batchnumber,"__0_invalidFlags.csv"), row.names = FALSE)  
                 
             }
+            message2=paste0("Csv file saved in: ", paste0(PARAMS$debugFolder,"/Batch_",batchnumber,"/B",batchnumber,"__0_invalidFlags.csv"))
+            
         } 
         
-        paste0("Invalid Flags in the commodity Tree.Email sent to ", swsContext.userEmail)
+        paste0("Invalid Flags in the commodity Tree.",message2)
         
-    }else{  
+    }else{  # End of case for which flags are invalid
         if(!CheckDebug()){
-            body = paste("The Commodity Tree has been validated for",
-                         "Flags and general validity of figures",
+            body = paste("The Commodity Tree has been validated for Flags",
                          " ",
+                         "No check has been performed regarding extraction Rate and share's range",
                          "No check has been performed regarding the values of shares by child",
-                         "=================================================",
-                         "If shares have to be used",
-                         "Consistency of shares by child has to be checked"
-                         ,sep='\n')
+                         sep='\n')
             sendmailR::sendmail(from = "sws@fao.org",
                                 to = swsContext.userEmail,
                                 subject = sprintf("tree successfully downloaded and Checked"),
                                 msg = strsplit(body,"\n")[[1]])
             
         }
-        message("tree successfully downloaded and Checked")
+        message("Commodity Tree flags are valid")
         tree
         
     }
