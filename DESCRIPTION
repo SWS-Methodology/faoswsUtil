@@ -1,8 +1,8 @@
 Package: faoswsUtil
 Type: Package
 Title: A suite of function to support the FAO new Statistical Working System
-Version: 0.4.0
-Date: 2017-11-16
+Version: 0.4.1
+Date: 2018-01-29
 Authors@R: c(person("Michael C. J.", "Kao", role = "aut", email = "michael.kao@fao.org"), person("Sebastian Campbell", role =
               "cre", email = "sebastian.campbell@fao.org"), person("Aleksander", "Matrunich", role = "aut", email =
               "aleksander.matrunich@fao.org"), person("Joshua M.", "Browning", role = "aut", email =
