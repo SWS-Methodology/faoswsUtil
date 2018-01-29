@@ -80,35 +80,35 @@ validateTree = function(tree= NULL, min.er = 0, max.er = 7, validateShares = TRU
     
     if(dim(invalidTree)[1]>0){
         
-        FILETYPE = ".csv"
-        CONFIG <- faosws::GetDatasetConfig(swsContext.datasets[[1]]@domain, swsContext.datasets[[1]]@dataset)
-        sessionid <- ifelse(length(swsContext.datasets[[1]]@sessionId), 
-                            swsContext.datasets[[1]]@sessionId,
-                            "core")
-        
-        basename <- sprintf("%s_%s",
-                            "invalidTreeRows",
-                            sessionid)
-        basedir <- tempfile()
-        dir.create(basedir)
-        destfile <- file.path(basedir, paste0(basename, FILETYPE))
-        
-        # create the csv in a temporary foldes   
-        write.csv(invalidTreeRows, destfile, row.names = FALSE)  
-        # define on exit strategy
-        on.exit(file.remove(destfile))    
-        zipfile <- paste0(destfile, ".zip")
-        withCallingHandlers(zip(zipfile, destfile, flags = "-j9X"),
-                            warning = function(w){
-                                if(grepl("system call failed", w$message)){
-                                    stop("The system ran out of memory trying to zip up your data. Consider splitting your request into chunks")
-                                }
-                            })
-        
-        on.exit(file.remove(zipfile), add = TRUE)
-        
         if(!CheckDebug()){
             # Create the body of the message
+            
+            FILETYPE = ".csv"
+            CONFIG <- faosws::GetDatasetConfig(swsContext.datasets[[1]]@domain, swsContext.datasets[[1]]@dataset)
+            sessionid <- ifelse(length(swsContext.datasets[[1]]@sessionId), 
+                                swsContext.datasets[[1]]@sessionId,
+                                "core")
+            
+            basename <- sprintf("%s_%s",
+                                "invalidTreeRows",
+                                sessionid)
+            basedir <- tempfile()
+            dir.create(basedir)
+            destfile <- file.path(basedir, paste0(basename, FILETYPE))
+            
+            # create the csv in a temporary foldes   
+            write.csv(invalidTree, destfile, row.names = FALSE)  
+            # define on exit strategy
+            on.exit(file.remove(destfile))    
+            zipfile <- paste0(destfile, ".zip")
+            withCallingHandlers(zip(zipfile, destfile, flags = "-j9X"),
+                                warning = function(w){
+                                    if(grepl("system call failed", w$message)){
+                                        stop("The system ran out of memory trying to zip up your data. Consider splitting your request into chunks")
+                                    }
+                                })
+            
+            on.exit(file.remove(zipfile), add = TRUE)
             body = paste("Standardization stopped because of:",
                          messageER,
                          " ",
@@ -143,15 +143,15 @@ validateTree = function(tree= NULL, min.er = 0, max.er = 7, validateShares = TRU
                                            )
                                 )
             )
-            stop("Standardization Stopped")
+            stop("Process Stopped")
             paste0("Email sent to ", swsContext.userEmail)
         }else{
             if(file.exists(paste0("debugFile/Batch_",batchnumber,"/B",batchnumber,"__0_invalidTreeRows.csv"))){
                 file.remove(paste0("debugFile/Batch_",batchnumber,"/B",batchnumber,"__0_invalidTreeRows.csv"))
             }
             dir.create(paste0(PARAMS$debugFolder,"/Batch_",batchnumber), showWarnings = FALSE,recursive=TRUE)
-            write.csv(invalidER, paste0(PARAMS$debugFolder,"/Batch_",batchnumber,"/B",batchnumber,"__0_invalidTreeRows.csv"), row.names = FALSE)  
-            stop(paste0("Csv file saved in: ", paste0(PARAMS$debugFolder,"/Batch_",batchnumber,"/B",batchnumber,"__0_invalidTreeRows.csv")))
+            write.csv(invalidTree, paste0(PARAMS$debugFolder,"/Batch_",batchnumber,"/B",batchnumber,"__0_invalidTreeRows.csv"), row.names = FALSE)  
+            return(paste0("Process Stopped for Invalid rows in Commodity Tree. Csv file saved in: ", paste0(PARAMS$debugFolder,"/Batch_",batchnumber,"/B",batchnumber,"__0_invalidTreeRows.csv")))
             
         }
         
