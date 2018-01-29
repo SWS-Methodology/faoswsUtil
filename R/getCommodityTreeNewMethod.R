@@ -4,7 +4,7 @@
 ##' 
 ##' @param geographicAreaM49 A character vector of area codes.  The trees 
 ##'   returned are specific to country and year; thus, providing this parameter 
-##'   limits which trees are pulled.  If NULL, all are used.
+##'   limits which trees are pulled. If NULL, all are used.
 ##' @param timePointYears A character vector of years.  See geographicAreaM49.
 ##'   
 ##' @return A data.table object containing the commodity tree.  The dimension 
@@ -23,8 +23,8 @@ getCommodityTreeNewMethod = function(geographicAreaM49 = NULL, timePointYears = 
              "won't be able to read from the SWS and so this function won't ",
              "work.")
     }
-    stopifnot(is(areakeys, "character"))
-    stopifnot(is(yearvals, "character"))
+    stopifnot(is(geographicAreaM49, "character"))
+    stopifnot(is(timePointYears, "character"))
     
     ## Define constants
     treeelemKeys = c("5423", "5431")
@@ -39,11 +39,13 @@ getCommodityTreeNewMethod = function(geographicAreaM49 = NULL, timePointYears = 
                            dimension = "timePointYears")[, code]
     if(!is.null(geographicAreaM49)){
         stopifnot(geographicAreaM49 %in% allAreaCodes)
-        allAreaCodes = geographicAreaM49
+    }else{
+        geographicAreaM49=allAreaCodes
     }
     if(!is.null(timePointYears)){
         stopifnot(timePointYears %in% allYears)
-        allYears = timePointYears
+    }else{
+        timePointYears=allYears
     }
 
     treeitemPKeys = GetCodeList(domain = "suafbs", dataset = "ess_fbs_commodity_tree", "measuredItemParentCPC")
@@ -83,6 +85,8 @@ getCommodityTreeNewMethod = function(geographicAreaM49 = NULL, timePointYears = 
     tree[measuredElementSuaFbs=="5423",measuredElementSuaFbs:="extractionRate"]
     tree[measuredElementSuaFbs=="5431",measuredElementSuaFbs:="share"]
 
+    message("Commodity Tree correctly downloaded")
+    
     return(tree)    
 }
  
