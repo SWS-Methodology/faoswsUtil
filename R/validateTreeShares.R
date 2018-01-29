@@ -93,6 +93,8 @@ validateTreeShares = function(tree = NULL){
         invalidSH = tree[measuredElementSuaFbs=="share"&(Value>1|Value<0)]
         messageSH = "Shares Valid for the selected Tree"
     }
+    
+    return(list(messageSH=messageSH,invalidSH=invalidSH))
+    
 }
 
-return(list(messageSH=messageSH,invalidSH=invalidSH))

@@ -9,7 +9,7 @@ getCommodityTreeNewMethod(geographicAreaM49 = NULL, timePointYears = NULL)
 \arguments{
 \item{geographicAreaM49}{A character vector of area codes.  The trees 
 returned are specific to country and year; thus, providing this parameter 
-limits which trees are pulled.  If NULL, all are used.}
+limits which trees are pulled. If NULL, all are used.}
 
 \item{timePointYears}{A character vector of years.  See geographicAreaM49.}
 }

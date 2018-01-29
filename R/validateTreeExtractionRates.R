@@ -17,10 +17,10 @@
 ##' 
 ##' @param tree the commodity tree to check
 ##'   
-##' @param min the lower limit of the range of acceptable values for Extraction Rates.
+##' @param min.er the lower limit of the range of acceptable values for Extraction Rates.
 ##' default to 0
 ##' 
-##' @param max the upper limit of the range of acceptable values for Extraction Rates.
+##' @param max.er the upper limit of the range of acceptable values for Extraction Rates.
 ##' default to 7
 ##'   
 ##' @return a list of two elements: 
@@ -55,13 +55,13 @@ validateTreeExtractionRates = function(tree = NULL, min.er = 0, max.er = 7){
     ##create column for check
     ##(this column will be deleted)
     tree[,checkFlags:=paste0("(",flagObservationStatus,",",flagMethod,")")]
-
+    
     ##############################################################
     #################### CHECK FLAG VALIDITY  ####################
     ##############################################################
     
     validERflags=c("(T,-)","(E,t)","(E,f)")
-
+    
     # if There is some invalid Flag Combination OR any value outside Ranges
     if(any(!(tree[measuredElementSuaFbs=="extractionRate",unique(checkFlags)]%in%validERflags))|
        any(tree[measuredElementSuaFbs=="extractionRate",unique(Value)]<min.er)|
@@ -99,6 +99,8 @@ validateTreeExtractionRates = function(tree = NULL, min.er = 0, max.er = 7){
         invalidER = tree[measuredElementSuaFbs=="extractionRate"&(Value>max.er|Value<min.er)]
         messageER = "Extraction Rates Valid for the selected Tree"
     }
+    
+    return(list(messageER=messageER,invalidER=invalidER))
+    
 }
 
-return(list(messageER=messageER,invalidER=invalidER))
