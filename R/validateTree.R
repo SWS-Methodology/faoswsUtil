@@ -110,7 +110,9 @@ validateTree = function(tree= NULL, min.er = 0, max.er = 7, validateShares = TRU
             
             on.exit(file.remove(zipfile), add = TRUE)
             body = paste("Standardization stopped because of:",
-                         messageER,
+                         messageTree,
+                         " ",
+                         paste0("check Share = ",validateShares),
                          " ",
                          "Look attached file for details",
                          " ",
@@ -131,7 +133,7 @@ validateTree = function(tree= NULL, min.er = 0, max.er = 7, validateShares = TRU
                          "(I,i) = calculated by the module - not protected",
                          " ",
                          "=================================================",
-                         "Valid Figures for Extraction Rates are in the range: ",min.er," to ", max.er
+                         paste0("Valid Figures for Extraction Rates are in the range: ",min.er," to ", max.er)
                          ,sep='\n')
             
             sendmailR::sendmail(from = "sws@fao.org",
