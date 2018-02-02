@@ -3,10 +3,10 @@ Type: Package
 Title: A suite of function to support the FAO new Statistical Working System
 Version: 0.4.1
 Date: 2018-01-29
-Authors@R: c(person("Michael C. J.", "Kao", role = "aut", email = "michael.kao@fao.org"), person("Sebastian Campbell", role =
-              "cre", email = "sebastian.campbell@fao.org"), person("Aleksander", "Matrunich", role = "aut", email =
+Authors@R: c(person("Michael C. J.", "Kao", role = "aut", email = "michael.kao@fao.org"), person("Sebastian", "Campbell", role =
+              "aut", email = "sebastian.campbell@fao.org"), person("Aleksander", "Matrunich", role = "aut", email =
               "aleksander.matrunich@fao.org"), person("Joshua M.", "Browning", role = "aut", email =
-              "joshua.browning@fao.org"))
+              "joshua.browning@fao.org"), person("Cristina", "Muschitiello", role = "cre", email = "Cristina.Muschitiello@fao.org"))
 Description: This package provides extra functionality to the faosws package.
 Imports: 
     data.table (>= 1.9.2), 
