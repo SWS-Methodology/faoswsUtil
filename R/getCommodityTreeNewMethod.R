@@ -32,10 +32,10 @@ getCommodityTreeNewMethod = function(geographicAreaM49 = NULL, timePointYears = 
     # 5431 = Share of utilization [%]
     
     ## Define the dimensions and check for input errors
-    allAreaCodes = GetCodeList(domain = "suafbs", dataset = "ess_fbs_commodity_tree",
+    allAreaCodes = GetCodeList(domain = "suafbs", dataset = "ess_fbs_commodity_tree2",
                                dimension = "geographicAreaM49")
     allAreaCodes = allAreaCodes[type == "country", code]
-    allYears = GetCodeList(domain = "suafbs", dataset = "ess_fbs_commodity_tree",
+    allYears = GetCodeList(domain = "suafbs", dataset = "ess_fbs_commodity_tree2",
                            dimension = "timePointYears")[, code]
     if(!is.null(geographicAreaM49)){
         stopifnot(geographicAreaM49 %in% allAreaCodes)
@@ -48,13 +48,13 @@ getCommodityTreeNewMethod = function(geographicAreaM49 = NULL, timePointYears = 
         timePointYears=allYears
     }
 
-    treeitemPKeys = GetCodeList(domain = "suafbs", dataset = "ess_fbs_commodity_tree", "measuredItemParentCPC")
+    treeitemPKeys = GetCodeList(domain = "suafbs", dataset = "ess_fbs_commodity_tree2", "measuredItemParentCPC")
     treeitemPKeys = treeitemPKeys[, code]
     
-    treeitemCKeys = GetCodeList(domain = "suafbs", dataset = "ess_fbs_commodity_tree", "measuredItemChildCPC")
+    treeitemCKeys = GetCodeList(domain = "suafbs", dataset = "ess_fbs_commodity_tree2", "measuredItemChildCPC")
     treeitemCKeys = treeitemCKeys[, code]
     
-    treekey = faosws::DatasetKey(domain = "suafbs", dataset = "ess_fbs_commodity_tree", dimensions = list(
+    treekey = faosws::DatasetKey(domain = "suafbs", dataset = "ess_fbs_commodity_tree2", dimensions = list(
         geographicAreaM49 = Dimension(name = "geographicAreaM49", keys = geographicAreaM49),
         measuredElementSuaFbs = Dimension(name = "measuredElementSuaFbs", keys = treeelemKeys),
         measuredItemParentCPC = Dimension(name = "measuredItemParentCPC", keys = treeitemPKeys),
