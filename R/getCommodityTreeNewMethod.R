@@ -48,10 +48,10 @@ getCommodityTreeNewMethod = function(geographicAreaM49 = NULL, timePointYears = 
         timePointYears=allYears
     }
 
-    treeitemPKeys = GetCodeList(domain = "suafbs", dataset = "ess_fbs_commodity_tree2", "measuredItemParentCPC")
+    treeitemPKeys = GetCodeList(domain = "suafbs", dataset = "ess_fbs_commodity_tree2", "measuredItemParentCPC_tree")
     treeitemPKeys = treeitemPKeys[, code]
     
-    treeitemCKeys = GetCodeList(domain = "suafbs", dataset = "ess_fbs_commodity_tree2", "measuredItemChildCPC")
+    treeitemCKeys = GetCodeList(domain = "suafbs", dataset = "ess_fbs_commodity_tree2", "measuredItemChildCPC_tree")
     treeitemCKeys = treeitemCKeys[, code]
     
     treekey = faosws::DatasetKey(domain = "suafbs", dataset = "ess_fbs_commodity_tree2", dimensions = list(
