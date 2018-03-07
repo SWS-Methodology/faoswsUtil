@@ -57,8 +57,8 @@ getCommodityTreeNewMethod = function(geographicAreaM49 = NULL, timePointYears = 
     treekey = faosws::DatasetKey(domain = "suafbs", dataset = "ess_fbs_commodity_tree2", dimensions = list(
         geographicAreaM49 = Dimension(name = "geographicAreaM49", keys = geographicAreaM49),
         measuredElementSuaFbs = Dimension(name = "measuredElementSuaFbs", keys = treeelemKeys),
-        measuredItemParentCPC = Dimension(name = "measuredItemParentCPC", keys = treeitemPKeys),
-        measuredItemChildCPC = Dimension(name = "measuredItemChildCPC", keys = treeitemCKeys),
+        measuredItemParentCPC = Dimension(name = "measuredItemParentCPC_tree", keys = treeitemPKeys),
+        measuredItemChildCPC = Dimension(name = "measuredItemChildCPC_tree", keys = treeitemCKeys),
         timePointYears = Dimension(name = "timePointYears", keys = timePointYears)
     ))
     
