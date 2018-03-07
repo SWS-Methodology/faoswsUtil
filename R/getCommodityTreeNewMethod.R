@@ -87,6 +87,9 @@ getCommodityTreeNewMethod = function(geographicAreaM49 = NULL, timePointYears = 
 
     message("Commodity Tree correctly downloaded")
     
+    setnames(tree,c("measuredItemParentCPC_tree","measuredItemChildCPC_tree"),
+             c("measuredItemParentCPC","measuredItemChildCPC"))
+    
     return(tree)    
 }
  
