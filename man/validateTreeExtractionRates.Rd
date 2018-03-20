@@ -2,24 +2,9 @@
 % Please edit documentation in R/validateTreeExtractionRates.R
 \name{validateTreeExtractionRates}
 \alias{validateTreeExtractionRates}
-\title{Validate ExtractionRates of Commodity Trees
-
-This function perform Flag Validation for the commodity Tree
-Validation. 
-The possible flags are (decided with Data Team): 
-
-Extraction Rates:
-(T,-) = validated up do 2013 - protected
-(E,t) = copied from 2014 onwards - not protected but that do not change during standardization process
-(E,f) = manually changed by the user - protected
-
-Shares: 
-(E,-) = coming from old methodology - NOT protected. These values willbe overwritten
-at any run of the module, except the values of oils, which are kept, unless manually changed
-(E,f) = manually changed by the user - protected
-(I,i) = calculated by the module - not protected}
+\title{Validate ExtractionRates of Commodity Trees}
 \usage{
-validateTreeExtractionRates(tree = NULL, min.er = 0, max.er = 7)
+validateTreeExtractionRates(tree = NULL, min.er = 0, max.er = 10)
 }
 \arguments{
 \item{tree}{the commodity tree to check}
@@ -34,4 +19,20 @@ default to 7}
 a list of two elements: 
 messageER, is a message with the information of validity of flags and 
 invalidER is a data.table which contains invalid Flags or invalid Values or is empty, if everything is valid
+}
+\description{
+This function perform Flag Validation for the commodity Tree
+Validation. 
+The possible flags are (decided with Data Team): 
+
+Extraction Rates:
+(T,-) = validated up do 2013 - protected
+(E,t) = copied from 2014 onwards - not protected but that do not change during standardization process
+(E,f) = manually changed by the user - protected
+
+Shares: 
+(E,-) = coming from old methodology - NOT protected. These values willbe overwritten
+at any run of the module, except the values of oils, which are kept, unless manually changed
+(E,f) = manually changed by the user - protected
+(I,i) = calculated by the module - not protected
 }

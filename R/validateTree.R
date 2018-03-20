@@ -1,6 +1,6 @@
 ##' @title Validate ExtractionRates of Commodity Trees
 ##' 
-##' This function perform Flag Validation for the commodity Tree
+##' @description This function perform Flag Validation for the commodity Tree
 ##' Validation. 
 ##' The possible flags are (decided with Data Team): 
 ##'
@@ -32,7 +32,7 @@
 ##' @export
 ##' 
 
-validateTree = function(tree= NULL, min.er = 0, max.er = 7, validateShares = TRUE){
+validateTree = function(tree= NULL, min.er = 0, max.er = 10, validateShares = TRUE){
     ## Data Quality Checks
     if(!exists("swsContext.datasets")){
         stop("No swsContext.datasets object defined.  Thus, you probably ",
