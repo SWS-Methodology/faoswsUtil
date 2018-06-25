@@ -4,10 +4,18 @@
 \alias{getNutritiveFactors}
 \title{Get Nutritive Factors}
 \usage{
-getNutritiveFactors(geographicAreaM49 = NULL, measuredElement = NULL,
-  measuredItemCPC = NULL, timePointYearsSP = NULL)
+getNutritiveFactors(nutrientDomain = "agriculture",
+  nutrientDataset = "aupus_ratio", geographicAreaM49 = NULL,
+  measuredElement = NULL, measuredItemCPC = NULL, timePointYearsSP = NULL,
+  flagVector = c("flagRatio"))
 }
 \arguments{
+\item{nutrientDomain}{A character specifig the SWS domain where the nutrient factor 
+table is stores in. The default value points to the "agriculture" domain.}
+
+\item{nutrientDataset}{A character specifig the SWS dataset where the nutrient factor 
+table is stores in. The default value points to the "aupus_ratio" domain.}
+
 \item{geographicAreaM49}{A character vector of area codes.  "0" (wildcard) 
 will always be included if it is not passed, but passing it does not cause
 any issues.  If NULL, the function pulls all area codes from the dimension
@@ -24,14 +32,19 @@ dimension table.}
 
 \item{timePointYearsSP}{A character vector of years.  As with 
 geographicAreaM49, "0" need not be passed but can be.  If NULL, the 
-function pulls all area codes from the dimension table.
+function pulls all area codes from the dimension table.}
 
-NOTE: This function chooses the nutrient factor for a particular 
-country/year by first looking for data specific to that country/year, then
-data specific to that country and all years, then data specific to that 
-year and all countries, then data for all years and all countries.  This
-order may not be appropriate, but it was my best guess at the time of
-writing the code.}
+\item{flagVector}{Vector of charactes identifing the colnames referring to the flag
+column/columns. This parameter has been added in order to allow the pull nutrient-data from diffent 
+dataset  characterised from different flag systems. For example the default option has been set
+in order to pull  nutrient-data from the aupus-ratio dataset.
+ 
+ NOTE: This function chooses the nutrient factor for a particular 
+ country/year by first looking for data specific to that country/year, then
+ data specific to that country and all years, then data specific to that 
+ year and all countries, then data for all years and all countries.  This
+ order may not be appropriate, but it was my best guess at the time of
+ writing the code.}
 }
 \value{
 A data.table containing the nutrient factors.  Any nutrient factor 

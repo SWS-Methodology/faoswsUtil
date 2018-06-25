@@ -5,6 +5,10 @@
 ##' all years or all countries or both.  Thus, we must combine these factors in 
 ##' a reasonable way and generate a useable table.
 ##' 
+##' @param nutrientDomain A character specifig the SWS domain where the nutrient factor 
+##'   table is stores in. The default value points to the "agriculture" domain.
+##' @param nutrientDataset A character specifig the SWS dataset where the nutrient factor 
+##'   table is stores in. The default value points to the "aupus_ratio" domain.  
 ##' @param geographicAreaM49 A character vector of area codes.  "0" (wildcard) 
 ##'   will always be included if it is not passed, but passing it does not cause
 ##'   any issues.  If NULL, the function pulls all area codes from the dimension
@@ -19,6 +23,10 @@
 ##' @param timePointYearsSP A character vector of years.  As with 
 ##'   geographicAreaM49, "0" need not be passed but can be.  If NULL, the 
 ##'   function pulls all area codes from the dimension table.
+##' @param flagVector Vector of charactes identifing the colnames referring to the flag
+##'  column/columns. This parameter has been added in order to allow the pull nutrient-data from diffent 
+##'  dataset  characterised from different flag systems. For example the default option has been set
+##'  in order to pull  nutrient-data from the aupus-ratio dataset.
 ##'   
 ##'   NOTE: This function chooses the nutrient factor for a particular 
 ##'   country/year by first looking for data specific to that country/year, then
@@ -34,8 +42,10 @@
 ##' @export
 ##' 
 
-getNutritiveFactors = function(geographicAreaM49 = NULL, measuredElement = NULL,
-                               measuredItemCPC = NULL, timePointYearsSP = NULL){
+getNutritiveFactors = function(nutrientDomain = "agriculture" , nutrientDataset = "aupus_ratio",
+                               geographicAreaM49 = NULL, measuredElement = NULL,
+                               measuredItemCPC = NULL, timePointYearsSP = NULL,
+                               flagVector = c("flagRatio")){
     ## Input Checks
     if(!exists("swsContext.datasets")){
         stop("swsContext objects not defined!  Please run GetTestEnvironment.")
@@ -43,19 +53,19 @@ getNutritiveFactors = function(geographicAreaM49 = NULL, measuredElement = NULL,
     
     ## If NULL is passed, use all codes
     if(is.null(geographicAreaM49)){
-        geographicAreaM49 = GetCodeList("agriculture", "aupus_ratio",
+        geographicAreaM49 = GetCodeList(nutrientDomain, nutrientDataset,
                                         "geographicAreaM49")[, code]
     }
     if(is.null(measuredElement)){
-        measuredElement = GetCodeList("agriculture", "aupus_ratio",
+        measuredElement = GetCodeList(nutrientDomain, nutrientDataset,
                                       "measuredElement")[, code]
     }
     if(is.null(measuredItemCPC)){
-        measuredItemCPC = GetCodeList("agriculture", "aupus_ratio",
+        measuredItemCPC = GetCodeList(nutrientDomain, nutrientDataset,
                                       "measuredItemCPC")[, code]
     }
     if(is.null(timePointYearsSP)){
-        timePointYearsSP = GetCodeList("agriculture", "aupus_ratio",
+        timePointYearsSP = GetCodeList(nutrientDomain, nutrientDataset,
                                        "timePointYearsSP")[, code]
     }
     
@@ -64,7 +74,7 @@ getNutritiveFactors = function(geographicAreaM49 = NULL, measuredElement = NULL,
     yearKeys = unique(c(timePointYearsSP, 0))
     
     ## Create the DatasetKey object to pull the data
-    nutrientKey = DatasetKey(domain = "agriculture", dataset = "aupus_ratio",
+    nutrientKey = DatasetKey(domain = nutrientDomain, dataset = nutrientDataset,
                              dimensions = list(
                                  geographicAreaM49 = Dimension(name = "geographicAreaM49",
                                                                keys = areaKeys),
@@ -93,8 +103,19 @@ getNutritiveFactors = function(geographicAreaM49 = NULL, measuredElement = NULL,
                    by = c("geographicAreaM49", "measuredElement",
                           "measuredItemCPC", "timePointYearsSP"),
                    suffixes = c("", ".new"))
-    output[is.na(Value), c("Value", "flagRatio") := list(Value.new, flagRatio.new)]
-    output[, c("Value.new", "flagRatio.new") := NULL]
+    flagVector.new=paste0(flagVector, ".new")
+    
+    if(length(flagVector.new)>1){
+        for(i in seq_len(length(flagVector.new))){
+        output[is.na(Value), c( flagVector[i]) := list(get(flagVector.new[i]))]  
+        }
+        output[is.na(Value), c("Value") := list(Value.new)]    
+        
+    }else{
+    output[is.na(Value), c("Value", flagVector) := list(Value.new, get(flagVector.new))]
+        }
+    output[, c("Value.new", flagVector.new) := NULL]
+    
     
     ## Include year specific data
     toInclude = allData[timePointYearsSP != "0" & geographicAreaM49 == "0", ]
@@ -109,9 +130,17 @@ getNutritiveFactors = function(geographicAreaM49 = NULL, measuredElement = NULL,
                    by = c("geographicAreaM49", "measuredElement",
                           "measuredItemCPC", "timePointYearsSP"),
                    suffixes = c("", ".new"))
-    output[is.na(Value), c("Value", "flagRatio") := list(Value.new, flagRatio.new)]
-    output[, c("Value.new", "flagRatio.new") := NULL]    
-
+    if(length(flagVector.new)>1){
+        for(i in seq_len(length(flagVector.new))){
+            output[is.na(Value), c( flagVector[i]) := list(get(flagVector.new[i]))]  
+        }
+        output[is.na(Value), c("Value") := list(Value.new)]    
+        
+    }else{
+        output[is.na(Value), c("Value", flagVector) := list(Value.new, get(flagVector.new))]
+    }
+    output[, c("Value.new", flagVector.new) := NULL]
+    
     ## Include generic data
     toInclude = allData[timePointYearsSP == "0" & geographicAreaM49 == "0", ]
     toInclude[, c("geographicAreaM49", "timePointYearsSP") := NULL]
@@ -125,8 +154,16 @@ getNutritiveFactors = function(geographicAreaM49 = NULL, measuredElement = NULL,
                    by = c("geographicAreaM49", "measuredElement",
                           "measuredItemCPC", "timePointYearsSP"),
                    suffixes = c("", ".new"))
-    output[is.na(Value), c("Value", "flagRatio") := list(Value.new, flagRatio.new)]
-    output[, c("Value.new", "flagRatio.new") := NULL]    
+    if(length(flagVector.new)>1){
+        for(i in seq_len(length(flagVector.new))){
+            output[is.na(Value), c( flagVector[i]) := list(get(flagVector.new[i]))]  
+        }
+        output[is.na(Value), c("Value") := list(Value.new)]    
+        
+    }else{
+        output[is.na(Value), c("Value", flagVector) := list(Value.new, get(flagVector.new))]
+    }
+    output[, c("Value.new", flagVector.new) := NULL]
     
     return(output)
 }
