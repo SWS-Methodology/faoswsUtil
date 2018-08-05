@@ -11,10 +11,17 @@ Authors@R: c(person("Michael C. J.", "Kao", role = "aut", email =
         "joshua.browning@fao.org"), person("Cristina", "Muschitiello", role
         = "cre", email = "Cristina.Muschitiello@fao.org"))
 Description: This package provides extra functionality to the faosws package.
-Imports: data.table (>= 1.9.2), faoswsFlag, faosws (>= 0.5.0), sendmailR,
-        plyr
-Suggests: stringr, reshape2, testthat
+Imports:
+    data.table (>= 1.9.2),
+    faoswsFlag,
+    faosws (>= 0.5.0),
+    sendmailR,
+    plyr
+Suggests:
+    stringr,
+    reshape2,
+    testthat
 License: GPL (>= 3)
 LazyData: yes
 ZipData: no
-RoxygenNote: 6.0.1
+RoxygenNote: 5.0.1

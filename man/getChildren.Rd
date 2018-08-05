@@ -33,3 +33,4 @@ This function takes a commodity tree and a vector of node ids and returns a
 vector of these nodes as well as all the descendants (or ancestors) of these
 nodes.
 }
+

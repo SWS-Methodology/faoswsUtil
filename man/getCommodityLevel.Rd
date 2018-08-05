@@ -32,3 +32,4 @@ A data.table with two columns: node (the ID of the commodity code)
 This function takes a commodity tree and provides the level of each 
 commodity within that tree.
 }
+

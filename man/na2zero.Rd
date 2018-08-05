@@ -16,3 +16,4 @@ The value of x if x has a value and 0 if x is na or has length 0.
 \description{
 Helper function to convert NA's to 0 when summing.
 }
+

@@ -12,3 +12,4 @@ toLowerCamel(string)
 \description{
 Function to convert string to lower camel case
 }
+

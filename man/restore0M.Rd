@@ -23,3 +23,4 @@ The data object with all the (0, M) replaced with (NA, M)
 This function is the reverse of \code{remove0M} which replaces
 (NA, M) with (0, M)
 }
+

@@ -20,3 +20,4 @@ Statistical Working System's. This function will help detect where the
 packages you have installed are different to those on the system or in any
 other repository.
 }
+

@@ -39,3 +39,4 @@ Sometimes non-existing records (observation status flag and method flag and
 value all NA) are returned by the database, or can be created by
 denormalising the data. This function removes these records.
 }
+

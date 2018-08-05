@@ -29,3 +29,4 @@ a list of two elements:
 messageSH, is a message with the information of validity of flags and 
 invalidSH is a data.table which contains invalid Flags or invalid Values or is empty, if everything is valid
 }
+

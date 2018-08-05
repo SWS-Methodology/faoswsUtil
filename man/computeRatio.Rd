@@ -14,3 +14,4 @@ computeRatio(numerator, denominator)
 \description{
 This is to avoid division by zero
 }
+
