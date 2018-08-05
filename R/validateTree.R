@@ -157,18 +157,19 @@ validateTree = function(tree= NULL, min.er = 0, max.er = 10, validateShares = TR
             
         }
         
-    }else{  # End of case for which flags and/or figures are invalid
-        if(!CheckDebug()){
-            body = paste("The Commodity Tree is valid",
-                         " ",
-                         "If no check has been performed on Shares, be aware that shares might be invalid",
-                         sep='\n')
-            sendmailR::sendmail(from = "sws@fao.org",
-                                to = swsContext.userEmail,
-                                subject = sprintf("tree successfully downloaded and Checked"),
-                                msg = strsplit(body,"\n")[[1]])
-            
-        }
-        message("Commodity Tree Extraction Rates are valid")
     }
+    # else{  # End of case for which flags and/or figures are invalid
+    #     if(!CheckDebug()){
+    #         body = paste("The Commodity Tree is valid",
+    #                      " ",
+    #                      "If no check has been performed on Shares, be aware that shares might be invalid",
+    #                      sep='\n')
+    #         sendmailR::sendmail(from = "sws@fao.org",
+    #                             to = swsContext.userEmail,
+    #                             subject = sprintf("tree successfully downloaded and Checked"),
+    #                             msg = strsplit(body,"\n")[[1]])
+    #         
+    #     }
+    #     message("Commodity Tree Extraction Rates are valid")
+    # }
 }
